@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".splash"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -25,6 +26,16 @@
             android:name=".login"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Consentimiento"
+            android:label="@string/title_activity_consentimiento"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Encuesta"
+            android:label="@string/title_activity_encuesta"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
 </manifest>

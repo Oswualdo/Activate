@@ -38,19 +38,19 @@ public class splash extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent= new Intent(splash.this,login.class);
+                Intent intent= new Intent(splash.this,Consentimiento.class);
                 startActivity(intent);
                 finish();
                 /*switch(getFirstTimeRun(splash.this)) {
                     case 0:
                         //Es la primera vez
-                        Intent intent= new Intent(splash.this,login.class);
+                        Intent intent = new Intent(splash.this, Consentimiento.class);
                         startActivity(intent);
                         finish();
                         break;
                     case 1:
                         //Ya has iniciado la app alguna vez"
-                        Intent main= new Intent(splash.this,MainActivity.class);
+                        Intent main = new Intent(splash.this, MainActivity.class);
                         startActivity(main);
                         finish();
                         break;

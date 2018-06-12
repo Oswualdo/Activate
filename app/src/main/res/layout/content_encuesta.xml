@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipToPadding="false"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".login"
-    tools:showIn="@layout/activity_login">
+    tools:context=".Encuesta"
+    tools:showIn="@layout/activity_encuesta">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,8 +20,20 @@
             android:text="Los datos seran utilizados de forma anónima."
             android:textAlignment="center" />
 
+        <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+            android:id="@+id/Alimentacion"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:hint="¿Como consideras tu alimentación?"
+            android:textColorHint="#CFD8DC"
+            app:met_floatingLabel="normal" />
+
+
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/NickName"
+            android:id="@+id/Peso"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -30,13 +41,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
-                android:hint="NickName"
-                android:inputType="textPersonName"
-                android:maxLength="50"/>
+                android:hint="¿Cual es tu peso aproximado?"
+                android:inputType="numberDecimal"
+                android:maxLength="5"
+                />
         </android.support.design.widget.TextInputLayout>
-
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/Edad"
+            android:id="@+id/Altura"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -44,60 +55,70 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
-                android:hint="Edad"
-                android:inputType="number"
-                android:maxLength="2"
+                android:hint="Ingrese su altura Aproximada"
+                android:inputType="numberDecimal"
+                android:maxLength="5"
                 />
         </android.support.design.widget.TextInputLayout>
 
         <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-            android:id="@+id/Genero"
+            android:id="@+id/Ejercicio"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:hint="Género"
+            android:hint="¿Cuantas horas de ejercicio realizas a la semana?"
             android:textColorHint="#CFD8DC"
             app:met_floatingLabel="normal" />
 
         <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-            android:id="@+id/Coordinacion"
+            android:id="@+id/Fumar"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:hint="Coordinación perteneciente"
+            android:hint="¿Fumas?"
             android:textColorHint="#CFD8DC"
             app:met_floatingLabel="normal" />
 
         <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-            android:id="@+id/Rol"
+            android:id="@+id/Alcohol"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:hint="Rol dentro de INAOE"
+            android:hint="¿Ingieres bebidas alcoholicas?"
             android:textColorHint="#CFD8DC"
             app:met_floatingLabel="normal" />
+
+        <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+            android:id="@+id/Tiempo"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:hint="Promedio de estancia en el INAOE al dia"
+            android:textColorHint="#CFD8DC"
+            app:met_floatingLabel="normal" />
+
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/button1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
             android:layout_marginBottom="31dp"
             android:layout_marginStart="120dp"
             android:background="@color/colorPrimary"
-            android:text="Continuar"
+            android:text="Enviar"
             android:textColor="@android:color/background_light"
             android:textSize="24sp"
             android:textStyle="bold" />
 
 
     </LinearLayout>
-
-
 </android.support.v4.widget.NestedScrollView>
