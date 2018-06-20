@@ -38,7 +38,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:hint="¿Conoces tu peso?"
+            android:hint="¿Conoces tu peso (Kg)?"
             android:textColorHint="#CFD8DC"
             app:met_floatingLabel="normal" />
 
@@ -47,7 +47,6 @@
             android:id="@+id/Peso"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="probando"
             android:visibility="gone">
 
             <android.support.design.widget.TextInputEditText
@@ -55,7 +54,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
                 android:inputType="numberDecimal"
-                android:maxLength="6" />
+                android:maxLength="6"
+                 />
         </android.support.design.widget.TextInputLayout>
 
         <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner

@@ -26,6 +26,7 @@ public class splash extends AppCompatActivity {
     private static final int terminar=300;
     private static final int DURACION_SPLASH=5000;
 
+    SharedPreferences prefs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,27 +39,45 @@ public class splash extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent= new Intent(splash.this,Consentimiento.class);
-                startActivity(intent);
-                finish();
-                /*switch(getFirstTimeRun(splash.this)) {
+                //Intent intent= new Intent(splash.this,Comida.class);
+               // startActivity(intent);
+               // finish();
+                switch(getFirstTimeRun(splash.this)) {
                     case 0:
                         //Es la primera vez
+                        //Declaramos bandera
+                        prefs = getSharedPreferences("MisPreferencias",Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putBoolean("bandera", false);
+                        editor.commit();
+
                         Intent intent = new Intent(splash.this, Consentimiento.class);
                         startActivity(intent);
                         finish();
                         break;
                     case 1:
-                        //Ya has iniciado la app alguna vez"
-                        Intent main = new Intent(splash.this, MainActivity.class);
-                        startActivity(main);
-                        finish();
-                        break;
+                        //Ya has iniciado la app alguna vez
+
+                        prefs = getSharedPreferences("MisPreferencias",Context.MODE_PRIVATE);
+                        Boolean bandActivity = prefs.getBoolean("bandera", false);
+                        if (!bandActivity){
+                            Intent main = new Intent(splash.this, Consentimiento.class);
+                            startActivity(main);
+                            finish();
+                            break;
+                        }else{
+                            Intent main = new Intent(splash.this, MainActivity.class);
+                            startActivity(main);
+                            finish();
+                            break;
+                        }
+
+
                     case 2:
                         //Es una versión nueva (actualizacion de la app)
                         //
                         break;
-                }*/
+                }
 
             };
         },DURACION_SPLASH);

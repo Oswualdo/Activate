@@ -1,6 +1,8 @@
 package com.example.root.activate;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -66,6 +68,7 @@ public class Encuesta extends AppCompatActivity {
         final String id_user=getIntent().getStringExtra("Id");
         final String NickName=getIntent().getStringExtra("Nickname");
         final String Edad=getIntent().getStringExtra("Edad");
+        final String Altura=getIntent().getStringExtra("Alt");
         final String Genero=getIntent().getStringExtra("Genero");
         final String Coordinacion=getIntent().getStringExtra("Coordinacion");
         final String Rol=getIntent().getStringExtra("Rol");
@@ -110,7 +113,6 @@ public class Encuesta extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String FFF=CPESO.getText().toString();
                 if(s.toString().equals("Si")){
                     Peso.setVisibility(View.VISIBLE);
                     Peso.setHint("¿Cuánto pesas?");
@@ -126,7 +128,7 @@ public class Encuesta extends AppCompatActivity {
 
 
 
-        Peso.getEditText().addTextChangedListener(new TextWatcher() {
+        /*Peso.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -142,6 +144,19 @@ public class Encuesta extends AppCompatActivity {
                         break;
                     case 2:
                         Peso.getEditText().setText("000."+Final);
+                        break;
+                    case 3:
+                        Peso.getEditText().setText("00."+Final);
+                        break;
+                    case 4:
+                        Peso.getEditText().setText("0."+Final);
+                        break;
+                    case 5:
+                        Peso.getEditText().setText("."+Final);
+                        break;
+                    case 6:
+                        Peso.getEditText().setText("000."+Final);
+                        break;
 
                 }
                 System.out.println("Entrada Secuence:"+Valor);
@@ -151,7 +166,7 @@ public class Encuesta extends AppCompatActivity {
                 Final=String.valueOf(temp);
                 System.out.println("FINAL:"+Final);
 
-
+                onTextChanged(Final,0,0,TAM);
 
                 Peso.getEditText().setSelection(6);
 
@@ -162,7 +177,7 @@ public class Encuesta extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
 
             }
-        });
+        });*/
 
 
 
@@ -208,7 +223,7 @@ public class Encuesta extends AppCompatActivity {
                     Map<String,Object> encuestaToSend = new HashMap<String, Object>();
                     encuestaToSend.put(ALIMENTACION_KEY,comida);
                     encuestaToSend.put(PESO_KEY,peso);
-                    //encuestaToSend.put(ALTURA_KEY,altura);
+                    encuestaToSend.put(ALTURA_KEY,Altura);
                     encuestaToSend.put(EJERCICIO_KEY,deport);
                     encuestaToSend.put(FUMAR_KEY,fum);
                     encuestaToSend.put(ALCOHOL_KEY,tom);
@@ -220,6 +235,11 @@ public class Encuesta extends AppCompatActivity {
                     Intent intent = new Intent(Encuesta.this, MainActivity.class);
                     startActivity(intent);
                     finish();
+
+                    SharedPreferences prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putBoolean("bandera", true);
+                    editor.commit();
 
                 }
 

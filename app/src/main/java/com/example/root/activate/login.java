@@ -26,11 +26,11 @@ public class login extends AppCompatActivity {
     String[] COORDINACION = {"Astrofísica", "Ciencias Computacionales","Ciencias y Tecnologías Biomédicas",
             "Ciencias y Tecnologías del Espacio","Ciencias y Tecnologías de Seguridad",
             "Enseñanza de Ciencias Exactas", "Electrónica","Óptica", "No aplica"};
-    String[] ROL = {"Administrativo","Estudiante", "Investigador", "Residente (Servicio Social, Practicante,Visitante)"};
+    String[] ROL = {"Administrativo","Estudiante", "Investigador", "Residente (Servicio Social, Practicante, Visitante)"};
 
     Button enviar;
 
-    TextInputLayout Nick, Edad;
+    TextInputLayout Nick, Edad,Altura;
 
     private static String uniqueID = null;
     private static final String PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
@@ -49,6 +49,7 @@ public class login extends AppCompatActivity {
 
         Nick = (TextInputLayout) findViewById(R.id.NickName);
         Edad = (TextInputLayout) findViewById(R.id.Edad);
+        Altura=(TextInputLayout) findViewById(R.id.Altura);
 
         enviar = (Button) findViewById(R.id.button);
 
@@ -65,12 +66,14 @@ public class login extends AppCompatActivity {
             public void onClick(View v) {
                 String nombre = Nick.getEditText().getText().toString();
                 String edad = Edad.getEditText().getText().toString();
+                String altura=Altura.getEditText().getText().toString();
 
                 String gen = genero.getText().toString();
                 String coor = coordinacion.getText().toString();
                 String ro = rol.getText().toString();
                 boolean N = esNombreValido(nombre);
                 boolean E = esEdadValido(edad);
+                boolean A = esAlturaValido(altura);
 
                 boolean G = validarSpinner(gen, genero);
                 boolean C = validarSpinner(coor, coordinacion);
@@ -78,11 +81,12 @@ public class login extends AppCompatActivity {
 
 
                 String deviceID = id(login.this);
-                if (N && E && G && C && R) {
+                if (N && E && G && C && R && A) {
                     Intent intent = new Intent(login.this, Encuesta.class);
                     intent.putExtra("Id",deviceID);
                     intent.putExtra("Nickname",nombre);
                     intent.putExtra("Edad",edad);
+                    intent.putExtra("Alt",altura);
                     intent.putExtra("Genero",gen);
                     intent.putExtra("Coordinacion",coor);
                     intent.putExtra("Rol",ro);
@@ -115,6 +119,16 @@ public class login extends AppCompatActivity {
             return false;
         } else {
             Edad.setError(null);
+        }
+
+        return true;
+    }
+    private boolean esAlturaValido(String edad) {
+        if (edad.isEmpty()) {
+            Altura.setError("Altura inválida");
+            return false;
+        } else {
+            Altura.setError(null);
         }
 
         return true;
