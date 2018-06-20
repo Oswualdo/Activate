@@ -23,7 +23,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="58dp"
         android:elevation="20dp"
-        app:srcCompat="@drawable/fondo" />
+        app:srcCompat="@drawable/opcion4" />
 
     <TextView
         android:id="@+id/textView"

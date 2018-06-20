@@ -1,14 +1,15 @@
 package com.example.root.activate;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
@@ -40,17 +41,20 @@ public class Encuesta extends AppCompatActivity {
     public static final String ALCOHOL_KEY="Alcohol";
     public static final String HORAS_KEY="Horas";
 
-    MaterialBetterSpinner alimentacion,ejercicio,fumar,tomar,estancia;
+    MaterialBetterSpinner alimentacion,ejercicio,fumar,tomar,estancia,CPESO;
 
-    String[] ALIM={"Mala","Regular","Buena","Excelente"};
-    String[] EJER={"<1 Hora","1-5 Horas","5-10 Horas",">10 Horas"};
-    String[] FU ={"Si","No"};
-    String[] TO ={"Si","No"};
-    String[] ESTAN={"<4 Horas","4-6 Horas","6-8 Horas",">8 Horas"};
+    String[] ALIM={"Malos","Regulares","Buenos","Excelentes"};
+    String[] EJER={"Menos de 1 Hora","De 1 a 5 Horas","De 6 a 10 Horas","Más de 10 Horas"};
+    String[] FU ={"Nunca","Ocasionalmente", "Regularmente"};
+    String[] TO ={"Nunca","Ocasionalmente", "Regularmente"};
+    String[] ESTAN={"Menos de 4 Horas","De 4 a 6 Horas","De 7 a 9 Horas","Más de 9 Horas"};
+    String[] CP={"Si","No"};
 
     Button enviar;
-    TextInputLayout Peso,Altura;
+    TextInputLayout Peso;
 
+    String Final="";
+    int TAM=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,23 +75,96 @@ public class Encuesta extends AppCompatActivity {
         fumar=(MaterialBetterSpinner)findViewById(R.id.Fumar);
         tomar=(MaterialBetterSpinner)findViewById(R.id.Alcohol);
         estancia=(MaterialBetterSpinner)findViewById(R.id.Tiempo);
+        CPESO=(MaterialBetterSpinner)findViewById(R.id.CPeso);
 
         enviar=(Button)findViewById(R.id.button1);
 
         Peso=(TextInputLayout)findViewById(R.id.Peso);
-        Altura=(TextInputLayout)findViewById(R.id.Altura);
 
         ArrayAdapter<String> adapter_Alimentacion = new ArrayAdapter<String>(Encuesta.this, android.R.layout.simple_dropdown_item_1line, ALIM);
         ArrayAdapter<String> adapter_Ejercicio = new ArrayAdapter<String>(Encuesta.this, android.R.layout.simple_dropdown_item_1line, EJER);
         ArrayAdapter<String> adapter_Fumar = new ArrayAdapter<String>(Encuesta.this, android.R.layout.simple_dropdown_item_1line, FU);
         ArrayAdapter<String> adapter_Tomar = new ArrayAdapter<String>(Encuesta.this, android.R.layout.simple_dropdown_item_1line, TO);
         ArrayAdapter<String> adapter_Estancia = new ArrayAdapter<String>(Encuesta.this, android.R.layout.simple_dropdown_item_1line, ESTAN);
+        ArrayAdapter<String> adapter_CPESO = new ArrayAdapter<String>(Encuesta.this, android.R.layout.simple_dropdown_item_1line, CP);
 
         alimentacion.setAdapter(adapter_Alimentacion);
         ejercicio.setAdapter(adapter_Ejercicio);
         fumar.setAdapter(adapter_Fumar);
         tomar.setAdapter(adapter_Tomar);
         estancia.setAdapter(adapter_Estancia);
+        CPESO.setAdapter(adapter_CPESO);
+
+
+
+        CPESO.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String FFF=CPESO.getText().toString();
+                if(s.toString().equals("Si")){
+                    Peso.setVisibility(View.VISIBLE);
+                    Peso.setHint("¿Cuánto pesas?");
+                }
+                if(s.toString().equals("No"))
+                {
+                    Peso.setVisibility(View.VISIBLE);
+                    Peso.setHint("¿Cuánto calculas que pesas?");
+                }
+
+            }
+        });
+
+
+
+        Peso.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String Valor=s.toString();
+                TAM=Valor.length();
+                Final=Final+Valor;
+                switch (TAM){
+                    case 1:
+                        Peso.getEditText().setText("000.0"+Final);
+                        break;
+                    case 2:
+                        Peso.getEditText().setText("000."+Final);
+
+                }
+                System.out.println("Entrada Secuence:"+Valor);
+                System.out.println("COUNT:"+count);
+                Final=Valor.replace(".","");
+                int temp=Integer.parseInt(Final);
+                Final=String.valueOf(temp);
+                System.out.println("FINAL:"+Final);
+
+
+
+                Peso.getEditText().setSelection(6);
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
 
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +176,7 @@ public class Encuesta extends AppCompatActivity {
                 String estanc=estancia.getText().toString();
 
                 String peso=Peso.getEditText().getText().toString();
-                String altura=Altura.getEditText().getText().toString();
+
 
                 boolean A=validarSpinner(comida,alimentacion);
                 boolean B=validarSpinner(deport,ejercicio);
@@ -107,9 +184,9 @@ public class Encuesta extends AppCompatActivity {
                 boolean D=validarSpinner(tom,tomar);
                 boolean E=validarSpinner(estanc,estancia);
                 boolean F=ValidarPeso(peso);
-                boolean G=ValidarPeso(altura);
 
-                if(A && B && C && D && E && F && G ) {
+
+                if(A && B && C && D && E && F ) {
                     //AQUI YA PUEDES MANDAR LOS DATOS QUE SE OBTIENEN DE LA APP
                     //A LA BASE DE DATOS
                     //Los datos son: id,NickName, Edad, Genero, Coordinacion, Rol, comida,deport,fum,tom,estanc,peso,altura
@@ -131,7 +208,7 @@ public class Encuesta extends AppCompatActivity {
                     Map<String,Object> encuestaToSend = new HashMap<String, Object>();
                     encuestaToSend.put(ALIMENTACION_KEY,comida);
                     encuestaToSend.put(PESO_KEY,peso);
-                    encuestaToSend.put(ALTURA_KEY,altura);
+                    //encuestaToSend.put(ALTURA_KEY,altura);
                     encuestaToSend.put(EJERCICIO_KEY,deport);
                     encuestaToSend.put(FUMAR_KEY,fum);
                     encuestaToSend.put(ALCOHOL_KEY,tom);

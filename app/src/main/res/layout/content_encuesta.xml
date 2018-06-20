@@ -27,7 +27,18 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:hint="¿Como consideras tu alimentación?"
+            android:hint="¿Cómo consideras tus hábitos alimenticios?"
+            android:textColorHint="#CFD8DC"
+            app:met_floatingLabel="normal" />
+
+        <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+            android:id="@+id/CPeso"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:hint="¿Conoces tu peso?"
             android:textColorHint="#CFD8DC"
             app:met_floatingLabel="normal" />
 
@@ -35,30 +46,16 @@
         <android.support.design.widget.TextInputLayout
             android:id="@+id/Peso"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:hint="probando"
+            android:visibility="gone">
 
             <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
-                android:hint="¿Cual es tu peso aproximado?"
                 android:inputType="numberDecimal"
-                android:maxLength="5"
-                />
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/Altura"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.design.widget.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="30dp"
-                android:hint="Ingrese su altura Aproximada"
-                android:inputType="numberDecimal"
-                android:maxLength="5"
-                />
+                android:maxLength="6" />
         </android.support.design.widget.TextInputLayout>
 
         <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner

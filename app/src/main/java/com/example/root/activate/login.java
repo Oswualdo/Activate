@@ -2,7 +2,9 @@ package com.example.root.activate;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +15,7 @@ import android.widget.Button;
 
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 public class login extends AppCompatActivity {
@@ -20,19 +23,17 @@ public class login extends AppCompatActivity {
     MaterialBetterSpinner genero, coordinacion, rol;
 
     String[] GENERO = {"Masculino", "Femenino"};
-    String[] COORDINACION = {"Astrofísica", "Óptica", "Ciencias Computacionales",
-            "Ciencias y Tecnologías del Espacio", "Ciencias y Tecnologías Biomédicas",
-            "Enseñanza de Ciencias Exactas", "Ciencias y Tecnologías de Seguridad"};
-    String[] ROL = {"Estudiante", "Investigador", "Administración", "Otros"};
+    String[] COORDINACION = {"Astrofísica", "Ciencias Computacionales","Ciencias y Tecnologías Biomédicas",
+            "Ciencias y Tecnologías del Espacio","Ciencias y Tecnologías de Seguridad",
+            "Enseñanza de Ciencias Exactas", "Electrónica","Óptica", "No aplica"};
+    String[] ROL = {"Administrativo","Estudiante", "Investigador", "Residente (Servicio Social, Practicante,Visitante)"};
 
     Button enviar;
 
     TextInputLayout Nick, Edad;
 
-    String TAG = "PhoneActivityTAG";
-    Activity activity = login.this;
-    String wantPermission = Manifest.permission.READ_PHONE_STATE;
-    private static final int PERMISSION_REQUEST_CODE = 1;
+    private static String uniqueID = null;
+    private static final String PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,15 +42,6 @@ public class login extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Registro");
         setSupportActionBar(toolbar);
-
-        //String android_id = Secure.getString(this.getContentResolver(), Secure.ANDROID_ID);
-
-       /* if (!checkPermission(wantPermission)) {
-            requestPermission(wantPermission);
-        } else {
-            Log.d(TAG, "Phone number: " + getPhone());
-        }*/
-       // System.out.print("NUMERO DE TELEFONO ANDROID: " + getPhone()); //obtiene el numero del telefono
 
         genero = (MaterialBetterSpinner) findViewById(R.id.Genero);
         coordinacion = (MaterialBetterSpinner) findViewById(R.id.Coordinacion);
@@ -83,10 +75,12 @@ public class login extends AppCompatActivity {
                 boolean G = validarSpinner(gen, genero);
                 boolean C = validarSpinner(coor, coordinacion);
                 boolean R = validarSpinner(ro, rol);
-                String id="0123456789";
+
+
+                String deviceID = id(login.this);
                 if (N && E && G && C && R) {
                     Intent intent = new Intent(login.this, Encuesta.class);
-                    intent.putExtra("Id",id);
+                    intent.putExtra("Id",deviceID);
                     intent.putExtra("Nickname",nombre);
                     intent.putExtra("Edad",edad);
                     intent.putExtra("Genero",gen);
@@ -137,46 +131,18 @@ public class login extends AppCompatActivity {
         return true;
     }
 
-   /* private String getPhone() {
-        TelephonyManager phoneMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        if (ActivityCompat.checkSelfPermission(activity, wantPermission) != PackageManager.PERMISSION_GRANTED) {
-            return "";
-        }
-        return phoneMgr.getLine1Number();
-    }
-
-    private void requestPermission(String permission){
-        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)){
-            Toast.makeText(activity, "Phone state permission allows us to get phone number. Please allow it for additional functionality.", Toast.LENGTH_LONG).show();
-        }
-        ActivityCompat.requestPermissions(activity, new String[]{permission},PERMISSION_REQUEST_CODE);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case PERMISSION_REQUEST_CODE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.d(TAG, "Phone number: " + getPhone());
-                } else {
-                    Toast.makeText(activity,"Permission Denied. We can't get phone number.", Toast.LENGTH_LONG).show();
-                }
-                break;
-        }
-    }
-
-    private boolean checkPermission(String permission){
-        if (Build.VERSION.SDK_INT >= 23) {
-            int result = ContextCompat.checkSelfPermission(activity, permission);
-            if (result == PackageManager.PERMISSION_GRANTED){
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return true;
-        }
-    }*/
-
+   public synchronized static String id(Context context) {
+       if (uniqueID == null) {
+           SharedPreferences sharedPrefs = context.getSharedPreferences(PREF_UNIQUE_ID, Context.MODE_PRIVATE);
+           uniqueID = sharedPrefs.getString(PREF_UNIQUE_ID, null);
+           if (uniqueID == null) {
+               uniqueID = UUID.randomUUID().toString();
+               SharedPreferences.Editor editor = sharedPrefs.edit();
+               editor.putString(PREF_UNIQUE_ID, uniqueID);
+               editor.commit();
+           }
+       }
+       return uniqueID;
+   }
 
 }

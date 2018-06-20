@@ -112,7 +112,7 @@ public class splash extends AppCompatActivity {
 
     //Retorna: 0 primera vez / 1 no es primera vez / 2 nueva versión
     public static int getFirstTimeRun(Context contexto) {
-        SharedPreferences sp = contexto.getSharedPreferences("MYAPP", 0);
+        SharedPreferences sp = contexto.getSharedPreferences("GetApp", 0);
         int result, currentVersionCode = BuildConfig.VERSION_CODE;
         int lastVersionCode = sp.getInt("FIRSTTIMERUN", -1);
         if (lastVersionCode == -1) result = 0; else
