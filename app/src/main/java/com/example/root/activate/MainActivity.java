@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         //Selecciona lugar donde se mostraran los datos
-        count = (TextView) findViewById(R.id.textView2);
+        count = (TextView) findViewById(R.id.txtView);
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
 
