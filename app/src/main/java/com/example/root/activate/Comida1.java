@@ -68,7 +68,7 @@ public class Comida1 extends AppCompatActivity {
                     //datos para enviar al servidor
                     // cen,des,col,beb,id
 
-                    
+
                     Intent intent = new Intent(Comida1.this, Comida.class);
                     //intent.putExtra("Id",deviceID);
                     //intent.putExtra("Nickname",nombre);
