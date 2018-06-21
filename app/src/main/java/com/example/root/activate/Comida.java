@@ -12,7 +12,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class Comida extends AppCompatActivity implements View.OnClickListener {
+
+    /*Para el servidor*/
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    public static final String USERS_REF="Usuarios";
+    public static final String TIPO_COMIDA_KEY="Tipo_comida";
+    public static final String ALIMENTO_REF="Alimento";
 
     ImageButton carne,pescado,pollo,vegetariano;
     String comida="";
@@ -50,6 +61,12 @@ public class Comida extends AppCompatActivity implements View.OnClickListener {
         String id=login.id(Comida.this);
         //enviar al servidor la variable
         //comida, id
+        Map<String,Object> dataOfFood = new HashMap<String, Object>();
+        dataOfFood.put(TIPO_COMIDA_KEY,comida);
+
+
+        db.collection(USERS_REF).document(id).collection(ALIMENTO_REF).document().set(dataOfFood);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Light_Dialog);
         builder.setTitle("Datos enviados correctamente")
                 .setMessage("Gracias por responder esta encuesta")

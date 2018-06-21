@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity
         PendingIntent pendingIntent=PendingIntent.getActivity(MainActivity.this,0,alarma,0);
         Calendar calendar=Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY,21);
-        calendar.set(Calendar.MINUTE,45);
+        calendar.set(Calendar.HOUR_OF_DAY,17);
+        calendar.set(Calendar.MINUTE,11);
 
         manager.setInexactRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
 
