@@ -1,6 +1,9 @@
 package com.example.root.activate;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -20,6 +23,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener {
 
@@ -32,6 +37,17 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //Para lanzar la encuesta de comida
+        AlarmManager manager=(AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        Intent alarma=new Intent(MainActivity.this,Comida1.class);
+        PendingIntent pendingIntent=PendingIntent.getActivity(MainActivity.this,0,alarma,0);
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY,21);
+        calendar.set(Calendar.MINUTE,45);
+
+        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
 
         //Selecciona lugar donde se mostraran los datos
         count = (TextView) findViewById(R.id.txtView);
