@@ -10,9 +10,27 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Comida1 extends AppCompatActivity {
+
+    /*Para el servidor*/
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    public static final String USERS_REF="Usuarios";
+    public static final String ID_USUARIO_KEY="id_usuario";
+    public static final String ALIMENTO_REF="Alimento";
+    public static final String DIA_KEY="Dia";
+    public static final String MES_KEY="Mes";
+    public static final String TIPO_COMIDA_KEY="Tipo_comida";
+    public static final String CENA_KEY="Cena";
+    public static final String DESAYUNO_KEY="Desayuno";
+    public static final String COLACION_KEY="Colacion";
+    public static final String BEBIDA_KEY="Bebida";
 
     MaterialBetterSpinner Cena, Desayuno, Colacion,Bebida;
 
@@ -62,21 +80,25 @@ public class Comida1 extends AppCompatActivity {
                 boolean D = validarSpinner(beb, Bebida);
 
                 if (A && B && C && D) {
+<<<<<<< Updated upstream
 
                     String id=login.id(Comida1.this);
 
                     //datos para enviar al servidor
                     // cen,des,col,beb,id
 
+=======
+                    Map<String,Object> dataOfFood = new HashMap<String, Object>();
+                    dataOfFood.put(CENA_KEY,cen);
+                    dataOfFood.put(DESAYUNO_KEY,des);
+                    dataOfFood.put(COLACION_KEY,col);
+                    dataOfFood.put(BEBIDA_KEY,beb);
+
+                    db.collection(USERS_REF).document("0123456789").collection(ALIMENTO_REF).document().set(dataOfFood);
+>>>>>>> Stashed changes
 
                     Intent intent = new Intent(Comida1.this, Comida.class);
-                    //intent.putExtra("Id",deviceID);
-                    //intent.putExtra("Nickname",nombre);
-                    //intent.putExtra("Edad",edad);
-                    //intent.putExtra("Alt",altura);
-                    //intent.putExtra("Genero",gen);
-                    //intent.putExtra("Coordinacion",coor);
-                    //intent.putExtra("Rol",ro);
+
                     startActivity(intent);
                     finish();
 
