@@ -47,9 +47,9 @@ public class Comida extends AppCompatActivity implements View.OnClickListener {
         if(v==vegetariano){
             comida="Vegetariano";
         }
-
+        String id=login.id(Comida.this);
         //enviar al servidor la variable
-        //comida
+        //comida, id
         AlertDialog.Builder builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Light_Dialog);
         builder.setTitle("Datos enviados correctamente")
                 .setMessage("Gracias por responder esta encuesta")

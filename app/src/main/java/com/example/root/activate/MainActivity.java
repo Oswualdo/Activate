@@ -8,6 +8,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -83,17 +84,24 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
+        if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
+           // Intent sendIntent = new Intent(Intent.ACTION_SEND);
+            //sendIntent.setType("text/plain");
+            //sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Compartir Kminaoe+");
+            //sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("https://ccc.inaoep.mx/~kaminaoemas/"));
 
-        } else if (id == R.id.nav_send) {
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("text/plain");
+            i.putExtra(Intent.EXTRA_SUBJECT, "Sharing App");
+            i.putExtra(Intent.EXTRA_TEXT, "https://ccc.inaoep.mx/~kaminaoemas/");
+            startActivity(Intent.createChooser(i, "Share URL"));
+
+
+
+            startActivity(Intent.createChooser(i, getString(R.string.compartir)));
+
 
         }
 

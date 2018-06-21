@@ -25,5 +25,13 @@ public class MyReceiver extends BroadcastReceiver {
             manager.setInexactRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
 
         }
+        AlarmManager manager=(AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent alarma=new Intent(context,Comida1.class);
+        PendingIntent pendingIntent=PendingIntent.getActivity(context,0,alarma,0);
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY,17);
+        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
+
     }
 }
