@@ -62,6 +62,13 @@ public class Comida1 extends AppCompatActivity {
                 boolean D = validarSpinner(beb, Bebida);
 
                 if (A && B && C && D) {
+
+                    String id=login.id(Comida1.this);
+
+                    //datos para enviar al servidor
+                    // cen,des,col,beb,id
+
+                    
                     Intent intent = new Intent(Comida1.this, Comida.class);
                     //intent.putExtra("Id",deviceID);
                     //intent.putExtra("Nickname",nombre);
