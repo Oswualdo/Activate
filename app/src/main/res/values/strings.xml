@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Kmina\u2295e</string>
-
+    <string name="compartir">Compartir app</string>
     <string name="title_activity_splash">splash</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
@@ -264,7 +264,19 @@
     <string name="tell_fasterslower_setting">Faster/slower</string>
     <string name="tell_fasterslower_setting_details">Helps you maintain your desired pace or speed (interval doesn\'t apply)</string>
     <string name="incorrect_step_length">Incorrect step length format! Go to the Settings to change it!</string>
-
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
     <string name="quit">Quit</string>
+    <string name="step_counter">
+         android.hardware.sensor.stepcounter
+   </string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_comida1">MainActivity</string>
 
+    <string name="step_detector">
+         android.hardware.sensor.stepdetector
+   </string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
