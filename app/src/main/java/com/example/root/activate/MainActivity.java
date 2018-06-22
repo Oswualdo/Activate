@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity
         calendar.set(Calendar.HOUR_OF_DAY,17);
         calendar.set(Calendar.MINUTE,11);
 
+
         manager.setInexactRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
 
         //Selecciona lugar donde se mostraran los datos
