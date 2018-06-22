@@ -6,7 +6,8 @@
 
     <color name="black_overlay">#66000000</color>
 
-
+    <color name="screen_background">#009</color>
+    <color name="display_background">#099</color>
 
     <color name="Primary">#7B1FA2</color>
     <color name="PrimaryDark">#AB47BC</color>
