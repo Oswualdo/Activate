@@ -11,9 +11,12 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/screen_background"
+
         android:orientation="vertical"
-        android:padding="@dimen/margin">
+        android:padding="@dimen/margin"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="85dp"
+        tools:layout_editor_absoluteY="28dp">
 
         <LinearLayout
             android:id="@+id/row_1"
@@ -197,12 +200,13 @@
         <LinearLayout
             android:id="@+id/desired_pace_control"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="186dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:orientation="horizontal"
             android:paddingTop="@dimen/row_spacing"
             android:visibility="invisible">
+
 
             <!-- Button "-", for decrementing desired pace/speed -->
             <Button
@@ -213,6 +217,7 @@
                 android:textSize="@dimen/button_sign" />
 
             <!-- Container for desired pace/speed -->
+
             <LinearLayout
                 android:layout_width="@dimen/desired_pace_width"
                 android:layout_height="wrap_content"
@@ -244,7 +249,24 @@
                 android:text="+"
                 android:textSize="@dimen/button_sign" />
 
+
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/linechart"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
