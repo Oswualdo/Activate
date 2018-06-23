@@ -1,6 +1,10 @@
 package com.example.root.activate;
 
+<<<<<<< HEAD
 import android.annotation.SuppressLint;
+=======
+import android.animation.ObjectAnimator;
+>>>>>>> master
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
@@ -30,8 +34,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+<<<<<<< HEAD
 import android.widget.Button;
 import android.widget.LinearLayout;
+=======
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
+>>>>>>> master
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,6 +82,7 @@ public class MainActivity extends AppCompatActivity
     private SensorManager sensorManager;
     private TextView count;
     boolean activityRunning;
+    ImageView imagen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,8 +90,16 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+       /* imagen=(ImageView)findViewById(R.id.imageView2);
+        ObjectAnimator rotateAnimator = ObjectAnimator.ofFloat(imagen, "rotation", 0f, 360f);
+        rotateAnimator.setRepeatCount(Animation.INFINITE);
+        rotateAnimator.setDuration(1000);
+        rotateAnimator.setInterpolator(new LinearInterpolator());
+        rotateAnimator.start();
+*/
+
         //Para lanzar la encuesta de comida
-        AlarmManager manager=(AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        /*AlarmManager manager=(AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         Intent alarma=new Intent(MainActivity.this,Comida1.class);
         PendingIntent pendingIntent=PendingIntent.getActivity(MainActivity.this,0,alarma,0);
         Calendar calendar=Calendar.getInstance();
@@ -88,7 +109,7 @@ public class MainActivity extends AppCompatActivity
 
 
         manager.setInexactRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
-
+*/
         //Selecciona lugar donde se mostraran los datos
         //count = (TextView) findViewById(R.id.txtView);
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);

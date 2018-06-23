@@ -39,9 +39,6 @@ public class splash extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                //Intent intent= new Intent(splash.this,Comida.class);
-               // startActivity(intent);
-               // finish();
                 switch(getFirstTimeRun(splash.this)) {
                     case 0:
                         //Es la primera vez
