@@ -67,6 +67,14 @@
         <activity
             android:name=".Comida1"
             android:label="@string/title_activity_comida1"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Final"
+            android:label="@string/title_activity_final"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Final2"
+            android:label="@string/title_activity_final2"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
