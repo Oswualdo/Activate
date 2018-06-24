@@ -19,6 +19,9 @@ import android.widget.Button;
 
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -123,9 +126,13 @@ public class Final extends AppCompatActivity {
 
 
                 if(A && B && C && D && E && F && G ) {
+                    String deviceID = login.id(Final.this);
+                    DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                    String date = df.format(Calendar.getInstance().getTime());
+
                     //AQUI YA PUEDES MANDAR LOS DATOS QUE SE OBTIENEN DE LA APP
                     //A LA BASE DE DATOS
-                    //Los datos son: comida,deport,fum,tom,estanc,peso,altura
+                    //Los datos son: comida,deport,fum,tom,estanc,peso,altura, devideID,date
 
 
                     //para despues pasar a la siguiente pantalla

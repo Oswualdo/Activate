@@ -15,6 +15,9 @@ import android.widget.Button;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -84,9 +87,10 @@ public class Comida1 extends AppCompatActivity {
                 if (A && B && C && D) {
 
                     String id=login.id(Comida1.this);
-
+                    DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                    String date = df.format(Calendar.getInstance().getTime());
                     //datos para enviar al servidor
-                    // cen,des,col,beb,id
+                    // cen,des,col,beb,id,date
 
                     Map<String,Object> dataOfFood = new HashMap<String, Object>();
                     dataOfFood.put(CENA_KEY,cen);

@@ -14,6 +14,9 @@ import android.widget.ImageButton;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,8 +62,10 @@ public class Comida extends AppCompatActivity implements View.OnClickListener {
             comida="Vegetariano";
         }
         String id=login.id(Comida.this);
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        String date = df.format(Calendar.getInstance().getTime());
         //enviar al servidor la variable
-        //comida, id
+        //comida, id, date
         Map<String,Object> dataOfFood = new HashMap<String, Object>();
         dataOfFood.put(TIPO_COMIDA_KEY,comida);
 

@@ -118,19 +118,6 @@ public class MainActivity extends AppCompatActivity
         rotateAnimator.setInterpolator(new LinearInterpolator());
         rotateAnimator.start();
 */
-
-        //Para lanzar la encuesta de comida
-        /*AlarmManager manager=(AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-        Intent alarma=new Intent(MainActivity.this,Comida1.class);
-        PendingIntent pendingIntent=PendingIntent.getActivity(MainActivity.this,0,alarma,0);
-        Calendar calendar=Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY,17);
-        calendar.set(Calendar.MINUTE,11);
-
-
-        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
-*/
         //Selecciona lugar donde se mostraran los datos
         //count = (TextView) findViewById(R.id.txtView);
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -141,11 +128,11 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawer.addDrawerListener(toggle);
-//        toggle.syncState();
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-//       navigationView.setNavigationItemSelectedListener(this);
+       navigationView.setNavigationItemSelectedListener(this);
 
 
 
@@ -186,18 +173,11 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
-           // Intent sendIntent = new Intent(Intent.ACTION_SEND);
-            //sendIntent.setType("text/plain");
-            //sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Compartir Kminaoe+");
-            //sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("https://ccc.inaoep.mx/~kaminaoemas/"));
-
             Intent i = new Intent(Intent.ACTION_SEND);
             i.setType("text/plain");
             i.putExtra(Intent.EXTRA_SUBJECT, "Sharing App");
             i.putExtra(Intent.EXTRA_TEXT, "https://ccc.inaoep.mx/~kaminaoemas/");
             startActivity(Intent.createChooser(i, "Share URL"));
-
-
 
             startActivity(Intent.createChooser(i, getString(R.string.compartir)));
 

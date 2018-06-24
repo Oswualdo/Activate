@@ -14,6 +14,10 @@ import android.widget.Button;
 
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class Final2 extends AppCompatActivity {
 
     MaterialBetterSpinner Gusto,Consulta,Distincion,Pulsera,Persona,Amigo, Habito,Comieron;
@@ -89,9 +93,13 @@ public class Final2 extends AppCompatActivity {
 
 
                 if(A && B && C && D && E && F && G && H ) {
+                    String deviceID = login.id(Final2.this);
+                    DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                    String date = df.format(Calendar.getInstance().getTime());
                     //AQUI YA PUEDES MANDAR LOS DATOS QUE SE OBTIENEN DE LA APP
                     //A LA BASE DE DATOS
-                    //Los datos son: gusto,consulta,distincion.pulsera,persona,amigo,habito,comieron
+                    //Los datos son: gusto,consulta,distincion.pulsera,persona,amigo,habito,comieron,deviceID,date
+
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(Final2.this, android.R.style.Theme_Material_Light_Dialog);
                     builder.setTitle("Datos enviados correctamente")
