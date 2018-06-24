@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
@@ -37,7 +38,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
->>>>>>> master
+
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +52,15 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener {
@@ -76,6 +86,7 @@ public class MainActivity extends AppCompatActivity
     private float mMaintainInc;
     private boolean mQuitting = false; // Set when user selected Quit from menu, can be used by onPause, onStop, onDestroy
 
+    private LineChart mChart;
 
     /**
      * True, when service is running.
@@ -563,6 +574,62 @@ public class MainActivity extends AppCompatActivity
         super.onRestart();
         Log.i(TAG, "[ACTIVITY] onRestart");
         super.onDestroy();
+    }
+
+    private ArrayList<String> setXAxisValues(){
+        ArrayList<String> xVals = new ArrayList<String>();
+        xVals.add("10");
+        xVals.add("20");
+        xVals.add("30");
+        xVals.add("30.5");
+        xVals.add("40");
+        xVals.add("50");
+
+
+        return xVals;
+    }
+
+    private ArrayList<Entry> setYAxisValues(){
+        ArrayList<Entry> yVals = new ArrayList<Entry>();
+        yVals.add(new Entry(60, 0));
+        yVals.add(new Entry(48, 1));
+        yVals.add(new Entry(70.5f, 2));
+        yVals.add(new Entry(100, 3));
+        yVals.add(new Entry(180.9f, 4));
+        yVals.add(new Entry(190.9f, 5));
+
+        return yVals;
+    }
+
+    private void setData() {
+        ArrayList<String> xVals = setXAxisValues();
+
+        ArrayList<Entry> yVals = setYAxisValues();
+
+        LineDataSet set1;
+
+        // create a dataset and give it a type
+        set1 = new LineDataSet(yVals, "DataSet 1");
+
+        set1.setFillAlpha(110);
+        //set1.setFillColor(Color.RED);
+
+        set1.setColor(Color.BLACK);
+        set1.setCircleColor(Color.BLACK);
+        set1.setLineWidth(1f);
+        set1.setCircleRadius(3f);
+        set1.setDrawCircleHole(false);
+        set1.setValueTextSize(9f);
+        set1.setDrawFilled(true);
+
+        ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+        dataSets.add(set1); // agregamos los datos
+
+        LineData data = new LineData(xVals, dataSets);
+
+
+        mChart.setData(data);
+
     }
 }
 
