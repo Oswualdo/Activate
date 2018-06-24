@@ -99,13 +99,14 @@ public class MainActivity extends AppCompatActivity
     ImageView imagen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG, "[ACTIVITY] onCreate");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mChart = (LineChart) findViewById(R.id.linechart);
 
-        setData();
+/*        setData();
         mChart.setDescription("Distancia recorrida");
         mChart.animateX(2500, Easing.EasingOption.EaseInOutQuart);
         mChart.invalidate();
@@ -140,18 +141,18 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+//        drawer.addDrawerListener(toggle);
+//        toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        Log.i(TAG, "[ACTIVITY] onCreate");
-        super.onCreate(savedInstanceState);
+//       navigationView.setNavigationItemSelectedListener(this);
+
+
 
         mStepValue = 0;
         mPaceValue = 0;
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.content_main);
 
         mUtils = Utils.getInstance();
     }
@@ -235,11 +236,8 @@ public class MainActivity extends AppCompatActivity
         mPedometerSettings.clearServiceRunning();
 
         mStepValueView     = (TextView) findViewById(R.id.step_value);
-        mPaceValueView     = (TextView) findViewById(R.id.pace_value);
         mDistanceValueView = (TextView) findViewById(R.id.distance_value);
-        mSpeedValueView    = (TextView) findViewById(R.id.speed_value);
-        mCaloriesValueView = (TextView) findViewById(R.id.calories_value);
-        mDesiredPaceView   = (TextView) findViewById(R.id.desired_pace_value);
+
 
         mIsMetric = mPedometerSettings.isMetric();
         ((TextView) findViewById(R.id.distance_units)).setText(getString(
@@ -247,18 +245,9 @@ public class MainActivity extends AppCompatActivity
                         ? R.string.kilometers
                         : R.string.miles
         ));
-        ((TextView) findViewById(R.id.speed_units)).setText(getString(
-                mIsMetric
-                        ? R.string.kilometers_per_hour
-                        : R.string.miles_per_hour
-        ));
 
-        mMaintain = mPedometerSettings.getMaintainOption();
-        ((LinearLayout) this.findViewById(R.id.desired_pace_control)).setVisibility(
-                mMaintain != PedometerSettings.M_NONE
-                        ? View.VISIBLE
-                        : View.GONE
-        );
+
+
         if (mMaintain == PedometerSettings.M_PACE) {
             mMaintainInc = 5f;
             mDesiredPaceOrSpeed = (float)mPedometerSettings.getDesiredPace();
@@ -268,34 +257,10 @@ public class MainActivity extends AppCompatActivity
             mDesiredPaceOrSpeed = mPedometerSettings.getDesiredSpeed();
             mMaintainInc = 0.1f;
         }
-        Button button1 = (Button) findViewById(R.id.button_desired_pace_lower);
-        button1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                mDesiredPaceOrSpeed -= mMaintainInc;
-                mDesiredPaceOrSpeed = Math.round(mDesiredPaceOrSpeed * 10) / 10f;
-                displayDesiredPaceOrSpeed();
-                setDesiredPaceOrSpeed(mDesiredPaceOrSpeed);
-            }
-        });
-        Button button2 = (Button) findViewById(R.id.button_desired_pace_raise);
-        button2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                mDesiredPaceOrSpeed += mMaintainInc;
-                mDesiredPaceOrSpeed = Math.round(mDesiredPaceOrSpeed * 10) / 10f;
-                displayDesiredPaceOrSpeed();
-                setDesiredPaceOrSpeed(mDesiredPaceOrSpeed);
-            }
-        });
-        if (mMaintain != PedometerSettings.M_NONE) {
-            ((TextView) findViewById(R.id.desired_pace_label)).setText(
-                    mMaintain == PedometerSettings.M_PACE
-                            ? R.string.desired_pace
-                            : R.string.desired_speed
-            );
-        }
 
 
-        displayDesiredPaceOrSpeed();
+
+//        displayDesiredPaceOrSpeed();
     }
 
     @Override
@@ -529,6 +494,7 @@ public class MainActivity extends AppCompatActivity
                     break;
                 case DISTANCE_MSG:
                     mDistanceValue = ((int)msg.arg1)/1000f;
+                    //mDistanceValueView.setText(""+mStepValue);
                     if (mDistanceValue <= 0) {
                         mDistanceValueView.setText("0");
                     }
@@ -628,7 +594,7 @@ public class MainActivity extends AppCompatActivity
         LineData data = new LineData(xVals, dataSets);
 
 
-        mChart.setData(data);
+//        mChart.setData(data);
 
     }
 }
