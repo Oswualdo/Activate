@@ -126,61 +126,6 @@ public class Encuesta extends AppCompatActivity {
             }
         });
 
-
-
-        /*Peso.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String Valor=s.toString();
-                TAM=Valor.length();
-                Final=Final+Valor;
-                switch (TAM){
-                    case 1:
-                        Peso.getEditText().setText("000.0"+Final);
-                        break;
-                    case 2:
-                        Peso.getEditText().setText("000."+Final);
-                        break;
-                    case 3:
-                        Peso.getEditText().setText("00."+Final);
-                        break;
-                    case 4:
-                        Peso.getEditText().setText("0."+Final);
-                        break;
-                    case 5:
-                        Peso.getEditText().setText("."+Final);
-                        break;
-                    case 6:
-                        Peso.getEditText().setText("000."+Final);
-                        break;
-
-                }
-                System.out.println("Entrada Secuence:"+Valor);
-                System.out.println("COUNT:"+count);
-                Final=Valor.replace(".","");
-                int temp=Integer.parseInt(Final);
-                Final=String.valueOf(temp);
-                System.out.println("FINAL:"+Final);
-
-                onTextChanged(Final,0,0,TAM);
-
-                Peso.getEditText().setSelection(6);
-
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });*/
-
-
-
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
