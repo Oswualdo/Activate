@@ -1,8 +1,5 @@
 package com.example.root.activate;
-
-<<<<<<< HEAD
 import android.annotation.SuppressLint;
-=======
 import android.animation.ObjectAnimator;
 >>>>>>> master
 import android.app.AlarmManager;
@@ -34,10 +31,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-<<<<<<< HEAD
 import android.widget.Button;
 import android.widget.LinearLayout;
-=======
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
