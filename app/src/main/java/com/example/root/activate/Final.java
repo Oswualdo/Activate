@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.text.DateFormat;
@@ -26,6 +27,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Final extends AppCompatActivity {
+
+    /*Para el servidor*/
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    public static final String USERS_REF="Usuarios";
+
+    public static final String ENCUESTA_REF="Encuesta";
+    public static final String ALIMENTACION_KEY="Alimentacion";
+    public static final String PESO_KEY="Peso";
+    public static final String EJERCICIO_KEY="Ejercicio";
+    public static final String FUMAR_KEY="Fumar";
+    public static final String ALCOHOL_KEY="Alcohol";
+    public static final String HORAS_KEY="Horas";
 
     MaterialBetterSpinner alimentacion,ejercicio,fumar,tomar,estancia,CPESO;
 
@@ -133,7 +147,16 @@ public class Final extends AppCompatActivity {
                     //AQUI YA PUEDES MANDAR LOS DATOS QUE SE OBTIENEN DE LA APP
                     //A LA BASE DE DATOS
                     //Los datos son: comida,deport,fum,tom,estanc,peso,altura, devideID,date
+                    //Los datos son: comida,deport,fum,tom,estanc,peso,altura
+                    Map<String,Object> encuestaToSend = new HashMap<String, Object>();
+                    encuestaToSend.put(ALIMENTACION_KEY,comida);
+                    encuestaToSend.put(PESO_KEY,peso);
+                    encuestaToSend.put(EJERCICIO_KEY,deport);
+                    encuestaToSend.put(FUMAR_KEY,fum);
+                    encuestaToSend.put(ALCOHOL_KEY,tom);
+                    encuestaToSend.put(HORAS_KEY,estanc);
 
+                    db.collection(USERS_REF).document("id_user").collection(ENCUESTA_REF).document("2").set(encuestaToSend);
 
                     //para despues pasar a la siguiente pantalla
                     Intent intent = new Intent(Final.this, Final2.class);
