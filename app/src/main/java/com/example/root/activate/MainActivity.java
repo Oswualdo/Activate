@@ -1,7 +1,7 @@
 package com.example.root.activate;
 import android.annotation.SuppressLint;
 import android.animation.ObjectAnimator;
->>>>>>> master
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
