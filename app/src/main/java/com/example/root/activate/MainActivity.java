@@ -5,6 +5,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -30,11 +31,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+
+
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener {
 
+    private LineChart mChart;
     private SensorManager sensorManager;
     private TextView count;
     boolean activityRunning;
@@ -45,6 +56,12 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        mChart = (LineChart) findViewById(R.id.linechart);
+
+        setData();
+        mChart.setDescription("Distancia recorrida");
+        mChart.animateX(2500, Easing.EasingOption.EaseInOutQuart);
+        mChart.invalidate();
 
        /* imagen=(ImageView)findViewById(R.id.imageView2);
         ObjectAnimator rotateAnimator = ObjectAnimator.ofFloat(imagen, "rotation", 0f, 360f);
@@ -161,4 +178,63 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
+
+    private ArrayList<String> setXAxisValues(){
+        ArrayList<String> xVals = new ArrayList<String>();
+        xVals.add("10");
+        xVals.add("20");
+        xVals.add("30");
+        xVals.add("30.5");
+        xVals.add("40");
+        xVals.add("50");
+
+
+        return xVals;
+    }
+
+    private ArrayList<Entry> setYAxisValues(){
+        ArrayList<Entry> yVals = new ArrayList<Entry>();
+        yVals.add(new Entry(60, 0));
+        yVals.add(new Entry(48, 1));
+        yVals.add(new Entry(70.5f, 2));
+        yVals.add(new Entry(100, 3));
+        yVals.add(new Entry(180.9f, 4));
+        yVals.add(new Entry(190.9f, 5));
+
+        return yVals;
+    }
+
+    private void setData() {
+        ArrayList<String> xVals = setXAxisValues();
+
+        ArrayList<Entry> yVals = setYAxisValues();
+
+        LineDataSet set1;
+
+        // create a dataset and give it a type
+        set1 = new LineDataSet(yVals, "DataSet 1");
+
+        set1.setFillAlpha(110);
+        //set1.setFillColor(Color.RED);
+
+        set1.setColor(Color.BLACK);
+        set1.setCircleColor(Color.BLACK);
+        set1.setLineWidth(1f);
+        set1.setCircleRadius(3f);
+        set1.setDrawCircleHole(false);
+        set1.setValueTextSize(9f);
+        set1.setDrawFilled(true);
+
+        ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+        dataSets.add(set1); // agregamos los datos
+
+        LineData data = new LineData(xVals, dataSets);
+
+
+        mChart.setData(data);
+
+    }
+
+
+
 }
