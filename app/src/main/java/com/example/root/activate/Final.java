@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
@@ -43,6 +44,9 @@ public class Final extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.BLACK);
         toolbar.setTitle("Encuesta Final");
         setSupportActionBar(toolbar);
+
+        Vibrator vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(2000);
 
         alimentacion=(MaterialBetterSpinner)findViewById(R.id.Alimentacion1);
         ejercicio=(MaterialBetterSpinner)findViewById(R.id.Ejercicio1);

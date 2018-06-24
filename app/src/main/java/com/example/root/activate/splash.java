@@ -1,8 +1,11 @@
 package com.example.root.activate;
 
 import android.annotation.SuppressLint;
+import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -35,6 +38,9 @@ public class splash extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
+
+        Intent msgIntent = new Intent(splash.this, ServicioEncuestas.class);
+        startService(msgIntent);
 
         new Handler().postDelayed(new Runnable() {
             @Override

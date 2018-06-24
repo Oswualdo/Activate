@@ -1,7 +1,9 @@
 package com.example.root.activate;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -46,6 +48,8 @@ public class Comida1 extends AppCompatActivity {
         toolbar.setTitle("Alimentación");
         setSupportActionBar(toolbar);
 
+        Vibrator vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(2000);
 
         Cena=(MaterialBetterSpinner)findViewById(R.id.Cena);
         Desayuno=(MaterialBetterSpinner)findViewById(R.id.Desayuno);
