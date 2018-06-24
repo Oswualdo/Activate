@@ -27,7 +27,7 @@ package com.example.root.activate;
  * 
  * @author Levente Bagi
  */
-public class SpeedNotifier implements PaceNotifier.Listener, SpeakingTimer.Listener {
+public class SpeedNotifier implements PaceNotifier.Listener {
 
     public interface Listener {
         public void valueChanged(float value);

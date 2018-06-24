@@ -51,9 +51,7 @@ public class StepService extends Service {
     private PaceNotifier mPaceNotifier;
     private DistanceNotifier mDistanceNotifier;
     private SpeedNotifier mSpeedNotifier;
-    private CaloriesNotifier mCaloriesNotifier;
-    private SpeakingTimer mSpeakingTimer;
-    
+
     private PowerManager.WakeLock wakeLock;
     private NotificationManager mNM;
 
@@ -122,17 +120,9 @@ public class StepService extends Service {
         mSpeedNotifier.setSpeed(mSpeed = mState.getFloat("speed", 0));
         mPaceNotifier.addListener(mSpeedNotifier);
         
-        mCaloriesNotifier = new CaloriesNotifier(mCaloriesListener, mPedometerSettings, mUtils);
-        mCaloriesNotifier.setCalories(mCalories = mState.getFloat("calories", 0));
-        mStepDetector.addStepListener(mCaloriesNotifier);
+
         
-        mSpeakingTimer = new SpeakingTimer(mPedometerSettings, mUtils);
-        mSpeakingTimer.addListener(mStepDisplayer);
-        mSpeakingTimer.addListener(mPaceNotifier);
-        mSpeakingTimer.addListener(mDistanceNotifier);
-        mSpeakingTimer.addListener(mSpeedNotifier);
-        mSpeakingTimer.addListener(mCaloriesNotifier);
-        mStepDetector.addStepListener(mSpeakingTimer);
+
         
         // Used when debugging:
         // mStepBuzzer = new StepBuzzer(this);
@@ -264,8 +254,7 @@ public class StepService extends Service {
         if (mPaceNotifier     != null) mPaceNotifier.reloadSettings();
         if (mDistanceNotifier != null) mDistanceNotifier.reloadSettings();
         if (mSpeedNotifier    != null) mSpeedNotifier.reloadSettings();
-        if (mCaloriesNotifier != null) mCaloriesNotifier.reloadSettings();
-        if (mSpeakingTimer    != null) mSpeakingTimer.reloadSettings();
+
     }
     
     public void resetValues() {
@@ -273,7 +262,6 @@ public class StepService extends Service {
         mPaceNotifier.setPace(0);
         mDistanceNotifier.setDistance(0);
         mSpeedNotifier.setSpeed(0);
-        mCaloriesNotifier.setCalories(0);
     }
     
     /**
@@ -335,17 +323,7 @@ public class StepService extends Service {
     /**
      * Forwards calories values from CaloriesNotifier to the activity. 
      */
-    private CaloriesNotifier.Listener mCaloriesListener = new CaloriesNotifier.Listener() {
-        public void valueChanged(float value) {
-            mCalories = value;
-            passValue();
-        }
-        public void passValue() {
-            if (mCallback != null) {
-                mCallback.caloriesChanged(mCalories);
-            }
-        }
-    };
+
     
     /**
      * Show a notification while this service is running.

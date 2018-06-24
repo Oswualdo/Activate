@@ -23,7 +23,7 @@ package com.example.root.activate;
  * Calculates and displays the distance walked.  
  * @author Levente Bagi
  */
-public class DistanceNotifier implements StepListener, SpeakingTimer.Listener {
+public class DistanceNotifier implements StepListener {
 
     public interface Listener {
         public void valueChanged(float value);
@@ -64,9 +64,9 @@ public class DistanceNotifier implements StepListener, SpeakingTimer.Listener {
                 / 100000.0); // centimeters/kilometer
         }
         else {
-            mDistance += (float)(// miles
-                mStepLength // inches
-                / 63360.0); // inches/mile
+            mDistance += (float)(// kilometers
+                    mStepLength // centimeters
+                            / 100000.0); // centimeters/kilometer
         }
         
         notifyListener();

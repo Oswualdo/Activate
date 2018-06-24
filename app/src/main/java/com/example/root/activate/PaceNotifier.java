@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * notifies user if he/she has to go faster or slower.  
  * @author Levente Bagi
  */
-public class PaceNotifier implements StepListener, SpeakingTimer.Listener {
+public class PaceNotifier implements StepListener {
 
     public interface Listener {
         public void paceChanged(int value);

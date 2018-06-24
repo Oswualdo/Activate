@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity
         mUtils = Utils.getInstance();
     }
 
-    private void displayDesiredPaceOrSpeed() {
+    /*private void displayDesiredPaceOrSpeed() {
         if (mMaintain == PedometerSettings.M_PACE) {
             mDesiredPaceView.setText("" + (int)mDesiredPaceOrSpeed);
         }
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity
             mDesiredPaceView.setText("" + mDesiredPaceOrSpeed);
         }
     }
-
+*/
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -237,7 +237,7 @@ public class MainActivity extends AppCompatActivity
 
         mStepValueView     = (TextView) findViewById(R.id.step_value);
         mDistanceValueView = (TextView) findViewById(R.id.distance_value);
-
+        //mDesiredPaceView   = (TextView) findViewById(R.id.desired_pace_value);
 
         mIsMetric = mPedometerSettings.isMetric();
         ((TextView) findViewById(R.id.distance_units)).setText(getString(
