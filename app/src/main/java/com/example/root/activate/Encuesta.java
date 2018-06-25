@@ -184,7 +184,9 @@ public class Encuesta extends AppCompatActivity {
                     SharedPreferences prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putBoolean("bandera", true);
+                    editor.putString("Nick",NickName);
                     editor.commit();
+
 
                     Intent msgIntent = new Intent(Encuesta.this, ServicioEncuestas.class);
                     startService(msgIntent);

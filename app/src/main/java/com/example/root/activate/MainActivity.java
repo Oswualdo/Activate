@@ -50,6 +50,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import com.github.mikephil.charting.animation.Easing;
@@ -94,30 +95,55 @@ public class MainActivity extends AppCompatActivity
     private boolean mIsRunning;
 
     private SensorManager sensorManager;
-    private TextView count;
+    private TextView count,nombre;
     boolean activityRunning;
-    ImageView imagen;
+    ImageView imagen_rota;
+    SharedPreferences prefs;
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "[ACTIVITY] onCreate");
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.content_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mChart = (LineChart) findViewById(R.id.linechart);
+
+        prefs = getSharedPreferences("MisPreferencias",Context.MODE_PRIVATE);
+        String IDNombre = prefs.getString("Nick","Usuario");
+        nombre=(TextView)findViewById(R.id.textView9);
+        nombre.setText(MessageFormat.format("Bienvenido: {0}", IDNombre));
+
+
 
 /*        setData();
         mChart.setDescription("Distancia recorrida");
         mChart.animateX(2500, Easing.EasingOption.EaseInOutQuart);
         mChart.invalidate();
+        */
 
-       /* imagen=(ImageView)findViewById(R.id.imageView2);
-        ObjectAnimator rotateAnimator = ObjectAnimator.ofFloat(imagen, "rotation", 0f, 360f);
+        imagen_rota=(ImageView)findViewById(R.id.Rota);
+        ObjectAnimator rotateAnimator = ObjectAnimator.ofFloat(imagen_rota, "rotation", 0f, 360f);
         rotateAnimator.setRepeatCount(Animation.INFINITE);
         rotateAnimator.setDuration(1000);
         rotateAnimator.setInterpolator(new LinearInterpolator());
         rotateAnimator.start();
-*/
+
+        /*new Thread(new Runnable() {
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        ObjectAnimator rotateAnimator = ObjectAnimator.ofFloat(imagen_rota, "rotation", 0f, 360f);
+                        rotateAnimator.setRepeatCount(Animation.INFINITE);
+                        rotateAnimator.setDuration(1000);
+                        rotateAnimator.setInterpolator(new LinearInterpolator());
+                        rotateAnimator.start();
+                    }
+                });
+            }
+        }).start();*/
+
+
         //Selecciona lugar donde se mostraran los datos
         //count = (TextView) findViewById(R.id.txtView);
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -128,18 +154,18 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-       // drawer.addDrawerListener(toggle);
+        //drawer.addDrawerListener(toggle);
         //toggle.syncState();
 
-        //NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-       //navigationView.setNavigationItemSelectedListener(this);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        //navigationView.setNavigationItemSelectedListener(this);
 
 
 
         mStepValue = 0;
         mPaceValue = 0;
 
-        setContentView(R.layout.content_main);
+
 
         mUtils = Utils.getInstance();
     }
@@ -170,9 +196,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
+        if (id == R.id.nav_share) {
             Intent i = new Intent(Intent.ACTION_SEND);
             i.setType("text/plain");
             i.putExtra(Intent.EXTRA_SUBJECT, "Sharing App");
