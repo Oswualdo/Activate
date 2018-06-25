@@ -314,8 +314,7 @@ public class MainActivity extends AppCompatActivity
             mService = null;
         }
     };
-
-
+    
     private void startStepService() {
         if (! mIsRunning) {
             Log.i(TAG, "[SERVICE] Start");
