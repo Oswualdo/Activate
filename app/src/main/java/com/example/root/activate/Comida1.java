@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.Time;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
+import java.sql.Struct;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -86,11 +88,14 @@ public class Comida1 extends AppCompatActivity {
 
                 if (A && B && C && D) {
 
-                    String id=login.id(Comida1.this);
+                    String id = login.id(Comida1.this);
                     DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
                     String date = df.format(Calendar.getInstance().getTime());
                     //datos para enviar al servidor
                     // cen,des,col,beb,id,date
+                    String[] separated = date.split("-");
+                    String dia=separated[0];
+                    String mes=separated[1];
 
                     Map<String,Object> dataOfFood = new HashMap<String, Object>();
                     dataOfFood.put(CENA_KEY,cen);
