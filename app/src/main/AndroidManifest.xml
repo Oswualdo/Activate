@@ -70,7 +70,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <service
             android:name=".ServicioEncuestas"
-            android:exported="false"></service>
+            android:exported="false"
+            android:process=":proceso"
+            android:enabled="true"></service>
     </application>
 
 </manifest>

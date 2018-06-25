@@ -12,9 +12,31 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class Final2 extends AppCompatActivity {
+    /*Para el servidor*/
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    public static final String USERS_REF="Usuarios";
+
+    public static final String ENCUESTA_REF="Encuesta";
+    public static final String GUSTO_KEY="Gusto";
+    public static final String CONSULTA_KEY="Consulta";
+    public static final String DISTINCION_KEY="Distincion";
+    public static final String PULSERA_KEY="Pulsera";
+    public static final String PERSONA_KEY="Persona";
+    public static final String AMIGO_KEY="Amigo";
+    public static final String HABITO_KEY="Habito";
+    public static final String COMIERON_KEY="Comieron";
 
     MaterialBetterSpinner Gusto,Consulta,Distincion,Pulsera,Persona,Amigo, Habito,Comieron;
 
@@ -89,9 +111,24 @@ public class Final2 extends AppCompatActivity {
 
 
                 if(A && B && C && D && E && F && G && H ) {
+                    String deviceID = login.id(Final2.this);
+                    DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                    String date = df.format(Calendar.getInstance().getTime());
                     //AQUI YA PUEDES MANDAR LOS DATOS QUE SE OBTIENEN DE LA APP
                     //A LA BASE DE DATOS
+                    //Los datos son: gusto,consulta,distincion.pulsera,persona,amigo,habito,comieron,deviceID,date
                     //Los datos son: gusto,consulta,distincion.pulsera,persona,amigo,habito,comieron
+                    Map<String,Object> encuestaToSend = new HashMap<String, Object>();
+                    encuestaToSend.put(GUSTO_KEY,gusto);
+                    encuestaToSend.put(CONSULTA_KEY,consulta);
+                    encuestaToSend.put(DISTINCION_KEY,distincion);
+                    encuestaToSend.put(PULSERA_KEY,pulsera);
+                    encuestaToSend.put(PERSONA_KEY,persona);
+                    encuestaToSend.put(AMIGO_KEY,amigo);
+                    encuestaToSend.put(HABITO_KEY,habito);
+                    encuestaToSend.put(COMIERON_KEY,comieron);
+
+                    db.collection(USERS_REF).document("id_user").collection(ENCUESTA_REF).document("3").set(encuestaToSend);
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(Final2.this, android.R.style.Theme_Material_Light_Dialog);
                     builder.setTitle("Datos enviados correctamente")
