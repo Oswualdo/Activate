@@ -314,7 +314,7 @@ public class MainActivity extends AppCompatActivity
             mService = null;
         }
     };
-    
+
     private void startStepService() {
         if (! mIsRunning) {
             Log.i(TAG, "[SERVICE] Start");
@@ -329,6 +329,7 @@ public class MainActivity extends AppCompatActivity
         bindService(new Intent(MainActivity.this,
                 StepService.class), mConnection, Context.BIND_AUTO_CREATE + Context.BIND_DEBUG_UNBIND);
     }
+
 
     private void unbindStepService() {
         Log.i(TAG, "[SERVICE] Unbind");

@@ -31,6 +31,7 @@ public class PedometerSettings {
     public static int M_NONE = 1;
     public static int M_PACE = 2;
     public static int M_SPEED = 3;
+
     
     public PedometerSettings(SharedPreferences settings) {
         mSettings = settings;
