@@ -25,20 +25,20 @@ public class ServicioEncuestas extends IntentService {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, alarma, 0);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 20);
-        calendar.set(Calendar.MINUTE,20);
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
+        calendar.set(Calendar.MINUTE,15);
         manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         String date = df.format(Calendar.getInstance().getTime());
 
-       if(date.equals("24-06-2018")){
+       if(date.equals("25-06-2018")){
            AlarmManager manager2 = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
            Intent alarma2 = new Intent(this, Final.class);
            PendingIntent pendingIntent2 = PendingIntent.getActivity(this, 0, alarma2, 0);
            Calendar calendar2 = Calendar.getInstance();
            calendar2.setTimeInMillis(System.currentTimeMillis());
-           calendar2.set(Calendar.HOUR_OF_DAY, 18);
+           calendar2.set(Calendar.HOUR_OF_DAY, 10);
            calendar2.set(Calendar.MINUTE,30);
            manager2.setRepeating(AlarmManager.RTC_WAKEUP, calendar2.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent2);
 

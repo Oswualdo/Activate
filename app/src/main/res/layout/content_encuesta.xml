@@ -38,7 +38,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:hint="¿Conoces tu peso (Cm)?"
+            android:hint="¿Conoces tu peso (Kg)?"
             android:textColorHint="#CFD8DC"
             app:met_floatingLabel="normal" />
 
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
                 android:inputType="number"
-                android:maxLength="3"
+                android:maxLength="4"
                  />
         </android.support.design.widget.TextInputLayout>
 

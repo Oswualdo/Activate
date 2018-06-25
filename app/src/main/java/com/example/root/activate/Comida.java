@@ -64,8 +64,12 @@ public class Comida extends AppCompatActivity implements View.OnClickListener {
         String id=login.id(Comida.this);
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         String date = df.format(Calendar.getInstance().getTime());
+        String[] separated = date.split("-");
+        String dia=separated[0];
+        String mes=separated[1];
         //enviar al servidor la variable
         //comida, id, date
+
         Map<String,Object> dataOfFood = new HashMap<String, Object>();
         dataOfFood.put(TIPO_COMIDA_KEY,comida);
 
