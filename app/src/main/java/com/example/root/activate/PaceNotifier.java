@@ -26,8 +26,6 @@ import java.util.ArrayList;
  * @author Levente Bagi
  */
 public class PaceNotifier implements StepListener {
-
-
     public interface Listener {
         public void paceChanged(int value);
         public void passValue();

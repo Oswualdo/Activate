@@ -330,7 +330,6 @@ public class MainActivity extends AppCompatActivity
                 StepService.class), mConnection, Context.BIND_AUTO_CREATE + Context.BIND_DEBUG_UNBIND);
     }
 
-
     private void unbindStepService() {
         Log.i(TAG, "[SERVICE] Unbind");
         unbindService(mConnection);

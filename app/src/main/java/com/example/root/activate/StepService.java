@@ -141,7 +141,6 @@ public class StepService extends Service {
         Log.i(TAG, "[SERVICE] onStart");
         super.onStart(intent, startId);
     }
-
     @SuppressLint("LongLogTag")
     @Override
     public void onDestroy() {

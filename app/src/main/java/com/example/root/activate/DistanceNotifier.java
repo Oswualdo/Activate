@@ -80,7 +80,6 @@ public class DistanceNotifier implements StepListener {
         // Callback of StepListener - Not implemented
     }
 
-
     public void speak() {
         if (mSettings.shouldTellDistance()) {
             if (mDistance >= .001f) {

@@ -36,7 +36,6 @@ public class StepBuzzer implements StepListener {
         mContext = context;
         mVibrator = (Vibrator)mContext.getSystemService(Context.VIBRATOR_SERVICE);
     }
-    
     public void onStep() {
         buzz();
     }

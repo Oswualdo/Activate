@@ -26,7 +26,6 @@ import java.util.ArrayList;
  */
 public class StepDisplayer implements StepListener {
 
-
     private int mCount = 0;
     PedometerSettings mSettings;
     Utils mUtils;
