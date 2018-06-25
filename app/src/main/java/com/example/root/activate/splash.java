@@ -39,7 +39,7 @@ public class splash extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
 
-        Intent msgIntent = new Intent(splash.this, ServicioEncuestas.class);
+        //Intent msgIntent = new Intent(splash.this, ServicioEncuestas.class);
         //startService(msgIntent);
 
         new Handler().postDelayed(new Runnable() {

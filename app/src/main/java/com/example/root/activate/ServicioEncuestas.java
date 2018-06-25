@@ -25,8 +25,8 @@ public class ServicioEncuestas extends IntentService {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, alarma, 0);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 18);
-        calendar.set(Calendar.MINUTE,55);
+        calendar.set(Calendar.HOUR_OF_DAY, 20);
+        calendar.set(Calendar.MINUTE,20);
         manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
@@ -39,7 +39,7 @@ public class ServicioEncuestas extends IntentService {
            Calendar calendar2 = Calendar.getInstance();
            calendar2.setTimeInMillis(System.currentTimeMillis());
            calendar2.set(Calendar.HOUR_OF_DAY, 18);
-           calendar2.set(Calendar.MINUTE,58);
+           calendar2.set(Calendar.MINUTE,30);
            manager2.setRepeating(AlarmManager.RTC_WAKEUP, calendar2.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent2);
 
        }

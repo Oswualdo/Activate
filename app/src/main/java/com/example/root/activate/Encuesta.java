@@ -186,6 +186,9 @@ public class Encuesta extends AppCompatActivity {
                     editor.putBoolean("bandera", true);
                     editor.commit();
 
+                    Intent msgIntent = new Intent(Encuesta.this, ServicioEncuestas.class);
+                    startService(msgIntent);
+
                 }
 
             }
