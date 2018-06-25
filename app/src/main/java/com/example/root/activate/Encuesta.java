@@ -163,7 +163,7 @@ public class Encuesta extends AppCompatActivity {
                     long d = System.currentTimeMillis()/1000;
                     dataOfUser.put(LAST_UPDATE_KEY,d);
 
-                    db.collection(USERS_REF).document(id_user).set(dataOfUser);
+                    db.collection(USERS_REF).document(NickName).set(dataOfUser);
 
                     Map<String,Object> encuestaToSend = new HashMap<String, Object>();
                     encuestaToSend.put(ALIMENTACION_KEY,comida);
@@ -174,7 +174,7 @@ public class Encuesta extends AppCompatActivity {
                     encuestaToSend.put(ALCOHOL_KEY,tom);
                     encuestaToSend.put(HORAS_KEY,estanc);
 
-                    db.collection(USERS_REF).document(id_user).collection(ENCUESTA_REF).document("1").set(encuestaToSend);
+                    db.collection(USERS_REF).document(NickName).collection(ENCUESTA_REF).document("1").set(encuestaToSend);
 
                     //para despues pasar a la siguiente pantalla
                     Intent intent = new Intent(Encuesta.this, MainActivity.class);

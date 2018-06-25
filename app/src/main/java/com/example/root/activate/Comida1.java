@@ -36,6 +36,7 @@ public class Comida1 extends AppCompatActivity {
     public static final String DESAYUNO_KEY="Desayuno";
     public static final String COLACION_KEY="Colacion";
     public static final String BEBIDA_KEY="Bebida";
+    public static final String LAST_UPDATE_KEY="Last_Update";
 
     MaterialBetterSpinner Cena, Desayuno, Colacion,Bebida;
 
@@ -102,8 +103,12 @@ public class Comida1 extends AppCompatActivity {
                     dataOfFood.put(DESAYUNO_KEY,des);
                     dataOfFood.put(COLACION_KEY,col);
                     dataOfFood.put(BEBIDA_KEY,beb);
+                    dataOfFood.put(DIA_KEY,dia);
+                    dataOfFood.put(MES_KEY,mes);
+                    dataOfFood.put(LAST_UPDATE_KEY,date);
+                    String idComida = date+"-2";
 
-                    db.collection(USERS_REF).document(id).collection(ALIMENTO_REF).document().set(dataOfFood);
+                    db.collection(USERS_REF).document(id).collection(ALIMENTO_REF).document(idComida).set(dataOfFood);
 
                     Intent intent = new Intent(Comida1.this, Comida.class);
 
