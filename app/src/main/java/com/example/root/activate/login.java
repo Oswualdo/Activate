@@ -82,7 +82,7 @@ public class login extends AppCompatActivity {
 
                 String deviceID = id(login.this);
                 if (N && E && G && C && R && A) {
-                    Intent intent = new Intent(login.this, MainActivity.class);
+                    Intent intent = new Intent(login.this, Encuesta.class);
                     intent.putExtra("Id",deviceID);
                     intent.putExtra("Nickname",nombre);
                     intent.putExtra("Edad",edad);
