@@ -73,6 +73,7 @@
             android:exported="false"
             android:process=":proceso"
             android:enabled="true"></service>
+        <service android:name=".StepService"/>
     </application>
 
 </manifest>
