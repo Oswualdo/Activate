@@ -40,7 +40,7 @@ public class splash extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         Intent msgIntent = new Intent(splash.this, ServicioEncuestas.class);
-        startService(msgIntent);
+        //startService(msgIntent);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -69,7 +69,7 @@ public class splash extends AppCompatActivity {
                             finish();
                             break;
                         }else{
-                            Intent main = new Intent(splash.this, Final.class);
+                            Intent main = new Intent(splash.this, MainActivity.class);
                             startActivity(main);
                             finish();
                             break;
