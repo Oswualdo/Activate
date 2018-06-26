@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity
     private int mStepValue;
     private int mPaceValue;
     private float mDistanceValue;
-    public static float dis;
     private float mSpeedValue;
     private int mCaloriesValue;
     private float mDesiredPaceOrSpeed;
@@ -479,7 +478,6 @@ public class MainActivity extends AppCompatActivity
                         mDistanceValueView.setText(
                                 ("" + (mDistanceValue + 0.000001f)).substring(0, 5)
                         );
-                        dis=mDistanceValue;
                     }
                     break;
 
