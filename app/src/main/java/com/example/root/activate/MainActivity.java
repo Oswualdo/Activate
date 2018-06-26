@@ -135,24 +135,20 @@ public class MainActivity extends AppCompatActivity
                 String linea = br.readLine();
                 String bitacoraCompleta = "";
                 lista.clear();
-                while(linea != null){
+                while (linea != null) {
                     lista.add(linea);
                     bitacoraCompleta = bitacoraCompleta + linea + "\n";
                     linea = br.readLine();
-
-                    // AAAA.add(linea);
-                    //linea2 = Integer.parseInt(br.readLine());;
+                    
                 }
                 br.close();
                 archivo.close();
                 //et1.setText(bitacoraCompleta);
                 //Toast.makeText(this, "puto", Toast.LENGTH_SHORT).show();
 
-            }catch (Exception ex){ //IOException e
-                Log.e("Ficheros", "Error al escribir fichero a memoria interna");
-            }}
-
-
+                }catch (Exception ex){ //IOException e
+                  Log.e("Ficheros", "Error al escribir fichero a memoria interna");
+                }}else{Toast.makeText(this, "puto", Toast.LENGTH_SHORT).show();}
 
         setData();
         mChart.setDescription("Distancia recorrida");

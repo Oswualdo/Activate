@@ -82,8 +82,8 @@
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="93dp"
+            android:layout_height="81dp"
             app:srcCompat="@drawable/opcion4" />
 
         <TextView
@@ -96,8 +96,8 @@
 
         <ImageView
             android:id="@+id/imageView4"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="93dp"
+            android:layout_height="76dp"
             android:layout_alignParentEnd="true"
             app:srcCompat="@drawable/inaoe" />
 
