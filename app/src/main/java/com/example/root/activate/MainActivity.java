@@ -1,6 +1,7 @@
 package com.example.root.activate;
 import android.annotation.SuppressLint;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
@@ -50,6 +51,10 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -92,6 +97,7 @@ public class MainActivity extends AppCompatActivity
     private boolean mQuitting = false; // Set when user selected Quit from menu, can be used by onPause, onStop, onDestroy
 
     private LineChart mChart;
+    private ArrayList<String> lista = new ArrayList<String>();
 
     /**
      * True, when service is running.
@@ -120,12 +126,39 @@ public class MainActivity extends AppCompatActivity
         nombre.setText(IDNombre);
 
 
+        String archivos [] = fileList();
 
-/*        setData();
+        if(ArchivoExiste(archivos, "bitacora.txt")){
+            try {
+                InputStreamReader archivo = new InputStreamReader(openFileInput("bitacora.txt"));
+                BufferedReader br = new BufferedReader(archivo);
+                String linea = br.readLine();
+                String bitacoraCompleta = "";
+                lista.clear();
+                while(linea != null){
+                    lista.add(linea);
+                    bitacoraCompleta = bitacoraCompleta + linea + "\n";
+                    linea = br.readLine();
+
+                    // AAAA.add(linea);
+                    //linea2 = Integer.parseInt(br.readLine());;
+                }
+                br.close();
+                archivo.close();
+                //et1.setText(bitacoraCompleta);
+                //Toast.makeText(this, "puto", Toast.LENGTH_SHORT).show();
+
+            }catch (Exception ex){ //IOException e
+                Log.e("Ficheros", "Error al escribir fichero a memoria interna");
+            }}
+
+
+
+        setData();
         mChart.setDescription("Distancia recorrida");
         mChart.animateX(2500, Easing.EasingOption.EaseInOutQuart);
         mChart.invalidate();
-        */
+
 
         imagen_rota=(ImageView)findViewById(R.id.Rota);
         ObjectAnimator rotateAnimator = ObjectAnimator.ofFloat(imagen_rota, "rotation", 0f, 360f);
@@ -507,26 +540,35 @@ public class MainActivity extends AppCompatActivity
 
     private ArrayList<String> setXAxisValues(){
         ArrayList<String> xVals = new ArrayList<String>();
-        xVals.add("10");
+
+
+        for(int q=0; q<lista.size();q++){
+            xVals.add(lista.get(q));
+        }
+       /* xVals.add("10");
         xVals.add("20");
         xVals.add("30");
         xVals.add("30.5");
         xVals.add("40");
         xVals.add("50");
-
+*/
 
         return xVals;
     }
 
     private ArrayList<Entry> setYAxisValues(){
         ArrayList<Entry> yVals = new ArrayList<Entry>();
-        yVals.add(new Entry(60, 0));
+        for(int q=0; q<lista.size();q++){
+            yVals.add(new Entry(Integer.parseInt(lista.get(q)), q));
+        }
+
+        /*yVals.add(new Entry(60, 0));
         yVals.add(new Entry(48, 1));
         yVals.add(new Entry(70.5f, 2));
         yVals.add(new Entry(100, 3));
         yVals.add(new Entry(180.9f, 4));
         yVals.add(new Entry(190.9f, 5));
-
+*/
         return yVals;
     }
 
@@ -557,9 +599,69 @@ public class MainActivity extends AppCompatActivity
         LineData data = new LineData(xVals, dataSets);
 
 
-//        mChart.setData(data);
+        mChart.setData(data);
 
     }
+
+
+
+    private boolean ArchivoExiste(String archivos [], String NombreArchivo){
+        for(int i = 0; i < archivos.length; i++)
+            if(NombreArchivo.equals(archivos[i]))
+                return true;
+        return false;
+    }
+
+    //Método para el botón Guardar
+    public void Guardar(View view){
+
+        try {
+
+            String valor =  mStepValueView.getText().toString() ;
+
+            OutputStreamWriter archivo = new OutputStreamWriter(openFileOutput("bitacora.txt", Activity.MODE_APPEND));
+            archivo.write(valor +  "\n");
+
+            archivo.flush();
+            archivo.close();
+        }catch (Exception ex){ //IOException e
+            Log.e("Ficheros", "Error al escribir fichero a memoria interna");
+        }
+        //Toast.makeText(this, "Bitacora guardada correctamente", Toast.LENGTH_SHORT).show();
+
+        String archivos [] = fileList();
+
+        if(ArchivoExiste(archivos, "bitacora.txt")){
+            try {
+                InputStreamReader archivo = new InputStreamReader(openFileInput("bitacora.txt"));
+                BufferedReader br = new BufferedReader(archivo);
+                String linea = br.readLine();
+                String bitacoraCompleta = "";
+                lista.clear();
+                while(linea != null){
+                    lista.add(linea);
+                    bitacoraCompleta = bitacoraCompleta + linea + "\n";
+                    linea = br.readLine();
+
+                    // AAAA.add(linea);
+                    //linea2 = Integer.parseInt(br.readLine());;
+                }
+                br.close();
+                archivo.close();
+                //et1.setText(bitacoraCompleta);
+                //Toast.makeText(this, "puto", Toast.LENGTH_SHORT).show();
+
+            }catch (Exception ex){ //IOException e
+                Log.e("Ficheros", "Error al escribir fichero a memoria interna");
+            }
+        }
+        setData();
+        mChart.setDescription("Distancia recorrida");
+        mChart.animateX(2500, Easing.EasingOption.EaseInOutQuart);
+        mChart.invalidate();
+    }
+
+
 }
 
 
