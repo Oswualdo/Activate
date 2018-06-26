@@ -6,19 +6,34 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.util.UUID;
 import java.util.regex.Pattern;
 
 public class login extends AppCompatActivity {
+
+    /*Para el servidor*/
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    public static final String USERS_REF="Usuarios";
+    public static final String NICKNAME_KEY="nickname";
+    static final String TAG="consulta";
 
     MaterialBetterSpinner genero, coordinacion, rol;
 
@@ -64,13 +79,13 @@ public class login extends AppCompatActivity {
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nombre = Nick.getEditText().getText().toString();
-                String edad = Edad.getEditText().getText().toString();
-                String altura=Altura.getEditText().getText().toString();
+                final String nombre = Nick.getEditText().getText().toString();
+                final String edad = Edad.getEditText().getText().toString();
+                final String altura=Altura.getEditText().getText().toString();
 
-                String gen = genero.getText().toString();
-                String coor = coordinacion.getText().toString();
-                String ro = rol.getText().toString();
+                final String gen = genero.getText().toString();
+                final String coor = coordinacion.getText().toString();
+                final String ro = rol.getText().toString();
                 boolean N = esNombreValido(nombre);
                 boolean E = esEdadValido(edad);
                 boolean A = esAlturaValido(altura);
@@ -80,18 +95,42 @@ public class login extends AppCompatActivity {
                 boolean R = validarSpinner(ro, rol);
 
 
-                String deviceID = id(login.this);
-                if (N && E && G && C && R && A) {
-                    Intent intent = new Intent(login.this, Encuesta.class);
-                    intent.putExtra("Id",deviceID);
-                    intent.putExtra("Nickname",nombre);
-                    intent.putExtra("Edad",edad);
-                    intent.putExtra("Alt",altura);
-                    intent.putExtra("Genero",gen);
-                    intent.putExtra("Coordinacion",coor);
-                    intent.putExtra("Rol",ro);
-                    startActivity(intent);
-                    finish();
+                final String deviceID = id(login.this);
+                Log.d("ID1:",deviceID);
+                String deviceID2 = id(login.this);
+                Log.d("ID1:",deviceID2);
+
+
+
+              if (N && E && G && C && R && A) {
+
+                  db.collection(USERS_REF).document(nombre).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                      @Override
+                      public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                          if (task.isSuccessful()) {
+                              DocumentSnapshot document = task.getResult();
+                              if (document.exists()) {
+                                  Nick.setError("Escribe otro NickName. "+nombre+" se encuentra en uso.");
+                                  Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                              } else {
+                                  Log.d(TAG, "No such document");
+                                  Intent intent = new Intent(login.this, Encuesta.class);
+                                  intent.putExtra("Id", deviceID);
+                                  intent.putExtra("Nickname", nombre);
+                                  intent.putExtra("Edad", edad);
+                                  intent.putExtra("Alt", altura);
+                                  intent.putExtra("Genero", gen);
+                                  intent.putExtra("Coordinacion", coor);
+                                  intent.putExtra("Rol", ro);
+                                  startActivity(intent);
+                                  finish();
+                                  Log.d(TAG, "no esta ese datp");
+                              }
+                          } else {
+                              Log.d(TAG, "get failed with ", task.getException());
+                          }
+                      }
+                  });
 
                 }
             }
@@ -112,6 +151,7 @@ public class login extends AppCompatActivity {
 
         return true;
     }
+
 
     private boolean esEdadValido(String edad) {
         if (edad.isEmpty()) {

@@ -6,6 +6,7 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,6 +28,9 @@ public class Comida extends AppCompatActivity implements View.OnClickListener {
     public static final String USERS_REF="Usuarios";
     public static final String TIPO_COMIDA_KEY="Tipo_comida";
     public static final String ALIMENTO_REF="Alimento";
+    public static final String DIA_KEY="Dia";
+    public static final String MES_KEY="Mes";
+    public static final String LAST_UPDATE_KEY="Last_Update";
 
     ImageButton carne,pescado,pollo,vegetariano;
     String comida="";
@@ -67,14 +71,21 @@ public class Comida extends AppCompatActivity implements View.OnClickListener {
         String[] separated = date.split("-");
         String dia=separated[0];
         String mes=separated[1];
+
+        SharedPreferences prefs = getSharedPreferences("MisPreferencias",Context.MODE_PRIVATE);
+        String IDNombre = prefs.getString("Nick","Usuario");
+
         //enviar al servidor la variable
         //comida, id, date
 
         Map<String,Object> dataOfFood = new HashMap<String, Object>();
         dataOfFood.put(TIPO_COMIDA_KEY,comida);
+        dataOfFood.put(LAST_UPDATE_KEY,date);
+        dataOfFood.put(DIA_KEY,dia);
+        dataOfFood.put(MES_KEY,mes);
 
-
-        db.collection(USERS_REF).document(id).collection(ALIMENTO_REF).document().set(dataOfFood);
+        String idComida = date+"-1";
+        db.collection(USERS_REF).document(id).collection(ALIMENTO_REF).document(idComida).set(dataOfFood);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Light_Dialog);
         builder.setTitle("Datos enviados correctamente")
