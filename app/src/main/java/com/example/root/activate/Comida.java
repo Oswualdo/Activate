@@ -85,7 +85,7 @@ public class Comida extends AppCompatActivity implements View.OnClickListener {
         dataOfFood.put(MES_KEY,mes);
 
         String idComida = date+"-1";
-        db.collection(USERS_REF).document(id).collection(ALIMENTO_REF).document(idComida).set(dataOfFood);
+        db.collection(USERS_REF).document(IDNombre).collection(ALIMENTO_REF).document(idComida).set(dataOfFood);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Light_Dialog);
         builder.setTitle("Datos enviados correctamente")
