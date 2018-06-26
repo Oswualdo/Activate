@@ -146,6 +146,9 @@ public class Final extends AppCompatActivity {
                     DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
                     String date = df.format(Calendar.getInstance().getTime());
 
+                    SharedPreferences prefs = getSharedPreferences("MisPreferencias",Context.MODE_PRIVATE);
+                    String IDNombre = prefs.getString("Nick","Usuario");
+
                     //AQUI YA PUEDES MANDAR LOS DATOS QUE SE OBTIENEN DE LA APP
                     //A LA BASE DE DATOS
                     //Los datos son: comida,deport,fum,tom,estanc,peso,altura, devideID,date

@@ -2,6 +2,7 @@ package com.example.root.activate;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
@@ -97,6 +98,9 @@ public class Comida1 extends AppCompatActivity {
                     String[] separated = date.split("-");
                     String dia=separated[0];
                     String mes=separated[1];
+
+                    SharedPreferences prefs = getSharedPreferences("MisPreferencias",Context.MODE_PRIVATE);
+                    String IDNombre = prefs.getString("Nick","Usuario");
 
                     Map<String,Object> dataOfFood = new HashMap<String, Object>();
                     dataOfFood.put(CENA_KEY,cen);

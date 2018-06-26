@@ -1,8 +1,10 @@
 package com.example.root.activate;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -115,6 +117,9 @@ public class Final2 extends AppCompatActivity {
                     String deviceID = login.id(Final2.this);
                     DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
                     String date = df.format(Calendar.getInstance().getTime());
+
+                    SharedPreferences prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+                    String IDNombre = prefs.getString("Nick","Usuario");
                     //AQUI YA PUEDES MANDAR LOS DATOS QUE SE OBTIENEN DE LA APP
                     //A LA BASE DE DATOS
                     //Los datos son: gusto,consulta,distincion.pulsera,persona,amigo,habito,comieron,deviceID,date

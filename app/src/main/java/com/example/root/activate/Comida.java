@@ -6,6 +6,7 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -70,6 +71,10 @@ public class Comida extends AppCompatActivity implements View.OnClickListener {
         String[] separated = date.split("-");
         String dia=separated[0];
         String mes=separated[1];
+
+        SharedPreferences prefs = getSharedPreferences("MisPreferencias",Context.MODE_PRIVATE);
+        String IDNombre = prefs.getString("Nick","Usuario");
+
         //enviar al servidor la variable
         //comida, id, date
 

@@ -63,6 +63,8 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.util.ArrayList;
 
+import static com.example.root.activate.R.id.drawer_layout;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener {
     private static final String TAG = "Pedometer";
@@ -102,17 +104,18 @@ public class MainActivity extends AppCompatActivity
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i(TAG, "[ACTIVITY] onCreate");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_main);
+        setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Kmina\u2295e");
         setSupportActionBar(toolbar);
         mChart = (LineChart) findViewById(R.id.linechart);
 
         prefs = getSharedPreferences("MisPreferencias",Context.MODE_PRIVATE);
         String IDNombre = prefs.getString("Nick","Usuario");
         nombre=(TextView)findViewById(R.id.textView9);
-        nombre.setText(MessageFormat.format("Bienvenido: {0}", IDNombre));
+        //nombre.setText(MessageFormat.format("Bienvenido: {0}", IDNombre));
+        nombre.setText(IDNombre);
 
 
 
@@ -129,20 +132,6 @@ public class MainActivity extends AppCompatActivity
         rotateAnimator.setInterpolator(new LinearInterpolator());
         rotateAnimator.start();
 
-        /*new Thread(new Runnable() {
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        ObjectAnimator rotateAnimator = ObjectAnimator.ofFloat(imagen_rota, "rotation", 0f, 360f);
-                        rotateAnimator.setRepeatCount(Animation.INFINITE);
-                        rotateAnimator.setDuration(1000);
-                        rotateAnimator.setInterpolator(new LinearInterpolator());
-                        rotateAnimator.start();
-                    }
-                });
-            }
-        }).start();*/
-
 
         //Selecciona lugar donde se mostraran los datos
         //count = (TextView) findViewById(R.id.txtView);
@@ -151,14 +140,14 @@ public class MainActivity extends AppCompatActivity
 
 
         //##############################################################################################
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        //drawer.addDrawerListener(toggle);
-        //toggle.syncState();
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        //navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(this);
 
 
 
@@ -181,7 +170,7 @@ public class MainActivity extends AppCompatActivity
 */
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -208,7 +197,7 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -404,23 +393,19 @@ public class MainActivity extends AppCompatActivity
     public boolean onPrepareOptionsMenu(Menu menu) {
         menu.clear();
         if (mIsRunning) {
-            menu.add(0, MENU_PAUSE, 0, R.string.pause)
+            menu.add(0, MENU_PAUSE, 0, "Pausar")
                     .setIcon(android.R.drawable.ic_media_pause)
                     .setShortcut('1', 'p');
         }
         else {
-            menu.add(0, MENU_RESUME, 0, R.string.resume)
+            menu.add(0, MENU_RESUME, 0, "Reanudar")
                     .setIcon(android.R.drawable.ic_media_play)
                     .setShortcut('1', 'p');
         }
-        menu.add(0, MENU_RESET, 0, R.string.reset)
+        menu.add(0, MENU_RESET, 0, "Reiniciar")
                 .setIcon(android.R.drawable.ic_menu_close_clear_cancel)
                 .setShortcut('2', 'r');
-        menu.add(0, MENU_SETTINGS, 0, R.string.settings)
-                .setIcon(android.R.drawable.ic_menu_preferences)
-                .setShortcut('8', 's')
-                .setIntent(new Intent(this, Settings.class));
-        menu.add(0, MENU_QUIT, 0, R.string.quit)
+        menu.add(0, MENU_QUIT, 0, "Salir")
                 .setIcon(android.R.drawable.ic_lock_power_off)
                 .setShortcut('9', 'q');
         return true;
