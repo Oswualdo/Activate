@@ -79,8 +79,10 @@ public class MainActivity extends AppCompatActivity
     private TextView mCaloriesValueView;
     TextView mDesiredPaceView;
     private int mStepValue;
+    public static float pasos;  //mio
     private int mPaceValue;
     private float mDistanceValue;
+    public static float dis;  //mio
     private float mSpeedValue;
     private int mCaloriesValue;
     private float mDesiredPaceOrSpeed;
@@ -467,6 +469,7 @@ public class MainActivity extends AppCompatActivity
                 case STEPS_MSG:
                     mStepValue = (int)msg.arg1;
                     mStepValueView.setText("" + mStepValue);
+                    pasos = mStepValue;//mio
                     break;
 
                 case DISTANCE_MSG:
@@ -479,6 +482,7 @@ public class MainActivity extends AppCompatActivity
                         mDistanceValueView.setText(
                                 ("" + (mDistanceValue + 0.000001f)).substring(0, 5)
                         );
+                        dis = mDistanceValue;//mio
                     }
                     break;
 

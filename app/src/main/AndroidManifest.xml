@@ -3,6 +3,7 @@
     package="com.example.root.activate">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <uses-feature
         android:name="@string/step_detector"
@@ -73,6 +74,13 @@
             android:exported="false"
             android:process=":proceso"
             android:enabled="true"></service>
+
+        <receiver android:name=".BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
         <service android:name=".StepService"/>
     </application>
 
