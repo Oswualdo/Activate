@@ -43,6 +43,7 @@ public class Final extends AppCompatActivity {
     public static final String HORAS_KEY="Horas";
     public static final String LAST_UPDATE_KEY="Last_Update";
 
+
     MaterialBetterSpinner alimentacion,ejercicio,fumar,tomar,estancia,CPESO;
 
     String[] ALIM={"Malos","Regulares","Buenos","Excelentes"};
@@ -163,7 +164,7 @@ public class Final extends AppCompatActivity {
                     encuestaToSend.put(LAST_UPDATE_KEY,date);
 
 
-                    db.collection(USERS_REF).document(deviceID).collection(ENCUESTA_REF).document("2").set(encuestaToSend);
+                    db.collection(USERS_REF).document(IDNombre).collection(ENCUESTA_REF).document("2").set(encuestaToSend);
 
                     //para despues pasar a la siguiente pantalla
                     Intent intent = new Intent(Final.this, Final2.class);

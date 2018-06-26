@@ -112,7 +112,7 @@ public class Comida1 extends AppCompatActivity {
                     dataOfFood.put(LAST_UPDATE_KEY,date);
                     String idComida = date+"-2";
 
-                    db.collection(USERS_REF).document(id).collection(ALIMENTO_REF).document(idComida).set(dataOfFood);
+                    db.collection(USERS_REF).document(IDNombre).collection(ALIMENTO_REF).document(idComida).set(dataOfFood);
 
                     Intent intent = new Intent(Comida1.this, Comida.class);
 
