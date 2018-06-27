@@ -493,7 +493,7 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId()) {
             case MENU_PAUSE:
                 unbindStepService();
-                stopStepService();
+                //stopStepService();
                 return true;
             case MENU_RESUME:
                 startStepService();
@@ -505,7 +505,7 @@ public class MainActivity extends AppCompatActivity
             case MENU_QUIT:
                 resetValues(false);
                 unbindStepService();
-                stopStepService();
+                //stopStepService();
                 mQuitting = true;
                 finish();
                 return true;
@@ -575,9 +575,10 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressLint("MissingSuperCall")
     protected void onRestart() {
-        super.onRestart();
+
         Log.i(TAG, "[ACTIVITY] onRestart");
-        super.onDestroy();
+        super.onRestart();
+        //super.onDestroy();
     }
 
     private ArrayList<String> setXAxisValues(){
