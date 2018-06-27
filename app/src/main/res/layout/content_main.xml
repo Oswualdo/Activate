@@ -51,10 +51,11 @@
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/linechart"
             android:layout_width="match_parent"
-            android:layout_height="236dp"
+            android:layout_height="278dp"
             android:layout_alignParentBottom="true"
             android:layout_below="@+id/Rota"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp" />
 
         <ImageView
             android:id="@+id/Rota"

@@ -65,7 +65,7 @@ public class EnvioPasos extends AppCompatActivity{
         }catch (Exception ex){ //IOException e
             Log.e("Ficheros", "Error al escribir fichero a memoria interna");
         }
-       // Toast.makeText(this, "Dato guardado", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, Integer.toString(pasos2), Toast.LENGTH_LONG).show();
 
 
 

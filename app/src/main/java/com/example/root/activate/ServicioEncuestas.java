@@ -29,14 +29,14 @@ public class ServicioEncuestas extends IntentService {
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, 17);
         calendar.set(Calendar.MINUTE,30);
-        //manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_HOUR, pendingIntent);
+        //manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_HOUR, pendingIntent);
 
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         String date = df.format(Calendar.getInstance().getTime());
 
-       if(date.equals("10-07-2018")){
+       if(date.equals("11-07-2018")){
            AlarmManager manager2 = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
            Intent alarma2 = new Intent(this, Final.class);
            PendingIntent pendingIntent2 = PendingIntent.getActivity(this, 0, alarma2, 0);
@@ -54,9 +54,9 @@ public class ServicioEncuestas extends IntentService {
         PendingIntent pendingIntent00 = PendingIntent.getActivity(this, 0, alarma00, 0);
         Calendar calendar00 = Calendar.getInstance();
         calendar00.setTimeInMillis(System.currentTimeMillis());
-        calendar00.set(Calendar.HOUR_OF_DAY, 20);
-        calendar00.set(Calendar.MINUTE,23);
-        //manager00.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent00);
+        calendar00.set(Calendar.HOUR_OF_DAY, 23);
+        calendar00.set(Calendar.MINUTE,55);
+        manager00.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent00);
 
 
         Toast.makeText(this, "Boot Receiver", Toast.LENGTH_SHORT).show();
@@ -67,7 +67,7 @@ public class ServicioEncuestas extends IntentService {
         AlarmManager manager9 = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         //manager9.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis(), PERIOD_MS, pendingIntent9);
 
-        long updateInterval = AlarmManager.INTERVAL_HOUR / 60;
+        long updateInterval = AlarmManager.INTERVAL_HOUR;
         manager00.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + updateInterval, updateInterval, pendingIntent00);//CaMmbiar "setRepeating"
 
 

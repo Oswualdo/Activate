@@ -153,13 +153,13 @@ public class MainActivity extends AppCompatActivity
                 }}else {
                     try {
                        // Toast.makeText(this, "puto", Toast.LENGTH_SHORT).show();
-                        OutputStreamWriter archivo = new OutputStreamWriter(openFileOutput("bitacora.txt", Context.MODE_APPEND));
+                        OutputStreamWriter archivo = new OutputStreamWriter(openFileOutput("bitacora.txt", Context.MODE_PRIVATE));
                         archivo.write("0" +  "\n");
                     }catch (Exception ex){}
                     }
 
         setData();
-        mChart.setDescription("Numero de pasos cada x minutos");
+        mChart.setDescription("Número de pasos hora");
         mChart.animateX(2500, Easing.EasingOption.EaseInOutQuart);
         mChart.invalidate();
 
@@ -321,7 +321,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         setData();
-        mChart.setDescription("Numero de pasos cada x minutos");
+        mChart.setDescription("Número de pasos cada hora");
         mChart.animateX(2500, Easing.EasingOption.EaseInOutQuart);
         mChart.invalidate();
 
@@ -455,6 +455,12 @@ public class MainActivity extends AppCompatActivity
                 stateEditor.putFloat("speed", 0);
                 stateEditor.putFloat("calories", 0);
                 stateEditor.commit();
+
+                try {
+                    // Toast.makeText(this, "puto", Toast.LENGTH_SHORT).show();
+                    OutputStreamWriter archivo = new OutputStreamWriter(openFileOutput("bitacora.txt", Context.MODE_PRIVATE));
+                    archivo.write("0" +  "\n");
+                }catch (Exception ex){}
             }
         }
     }
@@ -571,6 +577,10 @@ public class MainActivity extends AppCompatActivity
     protected void onDestroy() {
         Log.i(TAG, "[ACTIVITY] onDestroy");
         super.onDestroy();
+
+
+
+
     }
 
     @SuppressLint("MissingSuperCall")
