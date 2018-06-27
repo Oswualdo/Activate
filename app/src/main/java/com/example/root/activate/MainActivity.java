@@ -148,26 +148,13 @@ public class MainActivity extends AppCompatActivity
 
                 }catch (Exception ex){ //IOException e
                   Log.e("Ficheros", "Error al escribir fichero a memoria interna");
-<<<<<<< Updated upstream
-//<<<<<<< Updated upstream
-                }}else{Toast.makeText(this, "Agregado", Toast.LENGTH_SHORT).show();}
-/*/=======
-=======
 
->>>>>>> Stashed changes
-                }}else {
+               }}else {
                     try {
                        // Toast.makeText(this, "puto", Toast.LENGTH_SHORT).show();
                         OutputStreamWriter archivo = new OutputStreamWriter(openFileOutput("bitacora.txt", Context.MODE_PRIVATE));
                     }catch (Exception ex){}
                     }
-<<<<<<< Updated upstream
-//>>>>>>> Stashed changes
-*/
-=======
-
-
->>>>>>> Stashed changes
         setData();
         mChart.setDescription("Distancia recorrida");
         mChart.animateX(2500, Easing.EasingOption.EaseInOutQuart);
