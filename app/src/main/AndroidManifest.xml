@@ -81,6 +81,11 @@
             </intent-filter>
         </receiver>
 
+        <activity
+            android:name=".EnvioPasos"
+            android:label="EnvioPasos"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <service android:name=".StepService"/>
     </application>
 
