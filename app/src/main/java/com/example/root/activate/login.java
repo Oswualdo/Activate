@@ -2,9 +2,13 @@ package com.example.root.activate;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
@@ -14,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -76,6 +81,8 @@ public class login extends AppCompatActivity {
         coordinacion.setAdapter(adapter_Coordinacion);
         rol.setAdapter(adapter_Rol);
 
+
+
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,36 +110,49 @@ public class login extends AppCompatActivity {
 
 
               if (N && E && G && C && R && A) {
-
-                  db.collection(USERS_REF).document(nombre).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                      @Override
-                      public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                          if (task.isSuccessful()) {
-                              DocumentSnapshot document = task.getResult();
-                              if (document.exists()) {
-                                  Nick.setError("Escribe otro NickName. "+nombre+" se encuentra en uso.");
-                                  Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                  if (!compruebaConexion(login.this)) {
+                      AlertDialog.Builder builder = new AlertDialog.Builder(login.this, android.R.style.Theme_Material_Light_Dialog);
+                      builder.setTitle("Error de Conexión")
+                              .setMessage("Es necesario activar el acceso a internet ")
+                              .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                  public void onClick(DialogInterface dialog, int which) {
+                                      startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
+                                     // finish();
+                                  }
+                              })
+                              .setIcon(com.example.root.activate.R.drawable.opcion4)
+                              .show();
+                  } else {
+                      db.collection(USERS_REF).document(nombre).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                          @Override
+                          public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                              if (task.isSuccessful()) {
+                                  DocumentSnapshot document = task.getResult();
+                                  if (document.exists()) {
+                                      Nick.setError("Escribe otro NickName. " + nombre + " se encuentra en uso.");
+                                      Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                  } else {
+                                      Log.d(TAG, "No such document");
+                                      Intent intent = new Intent(login.this, Encuesta.class);
+                                      intent.putExtra("Id", deviceID);
+                                      intent.putExtra("Nickname", nombre);
+                                      intent.putExtra("Edad", edad);
+                                      intent.putExtra("Alt", altura);
+                                      intent.putExtra("Genero", gen);
+                                      intent.putExtra("Coordinacion", coor);
+                                      intent.putExtra("Rol", ro);
+                                      startActivity(intent);
+                                      finish();
+                                      Log.d(TAG, "no esta ese datp");
+                                  }
                               } else {
-                                  Log.d(TAG, "No such document");
-                                  Intent intent = new Intent(login.this, Encuesta.class);
-                                  intent.putExtra("Id", deviceID);
-                                  intent.putExtra("Nickname", nombre);
-                                  intent.putExtra("Edad", edad);
-                                  intent.putExtra("Alt", altura);
-                                  intent.putExtra("Genero", gen);
-                                  intent.putExtra("Coordinacion", coor);
-                                  intent.putExtra("Rol", ro);
-                                  startActivity(intent);
-                                  finish();
-                                  Log.d(TAG, "no esta ese datp");
+                                  Log.d(TAG, "get failed with ", task.getException());
                               }
-                          } else {
-                              Log.d(TAG, "get failed with ", task.getException());
                           }
-                      }
-                  });
+                      });
 
-                }
+                  }
+              }
             }
         });
 
@@ -198,5 +218,23 @@ public class login extends AppCompatActivity {
        }
        return uniqueID;
    }
+
+    public static boolean compruebaConexion(Context context) {
+
+        boolean connected = false;
+
+        ConnectivityManager connec = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        // Recupera todas las redes (tanto móviles como wifi)
+        NetworkInfo[] redes = connec.getAllNetworkInfo();
+
+        for (int i = 0; i < redes.length; i++) {
+            // Si alguna red tiene conexión, se devuelve true
+            if (redes[i].getState() == NetworkInfo.State.CONNECTED) {
+                connected = true;
+            }
+        }
+        return connected;
+    }
 
 }

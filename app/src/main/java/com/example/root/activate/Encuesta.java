@@ -1,6 +1,8 @@
 package com.example.root.activate;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -150,47 +152,59 @@ public class Encuesta extends AppCompatActivity {
                     //AQUI YA PUEDES MANDAR LOS DATOS QUE SE OBTIENEN DE LA APP
                     //A LA BASE DE DATOS
                     //Los datos son: id,NickName, Edad, Genero, Coordinacion, Rol, comida,deport,fum,tom,estanc,peso,altura
+                    if (!login.compruebaConexion(Encuesta.this)) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Encuesta.this, android.R.style.Theme_Material_Light_Dialog);
+                        builder.setTitle("Error de Conexión")
+                                .setMessage("Es necesario activar el acceso a internet ")
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
+                                        // finish();
+                                    }
+                                })
+                                .setIcon(com.example.root.activate.R.drawable.opcion4)
+                                .show();
+                    } else {
+                        /*para el servidor*/
+                        Map<String, Object> dataOfUser = new HashMap<String, Object>();
+                        dataOfUser.put(NICKNAME_KEY, NickName);
+                        dataOfUser.put(ID_USUARIO_KEY, id_user);
+                        dataOfUser.put(COORDINACION_KEY, Coordinacion);
+                        dataOfUser.put(ROL_KEY, Rol);
+                        dataOfUser.put(SEXO_KEY, Genero);
+                        dataOfUser.put(EDAD_KEY, Edad);
+                        //esto lo estoy probando como opcion
+                        long d = System.currentTimeMillis() / 1000;
+                        dataOfUser.put(LAST_UPDATE_KEY, d);
 
-                    /*para el servidor*/
-                    Map<String,Object> dataOfUser = new HashMap<String, Object>();
-                    dataOfUser.put(NICKNAME_KEY,NickName);
-                    dataOfUser.put(ID_USUARIO_KEY,id_user);
-                    dataOfUser.put(COORDINACION_KEY,Coordinacion);
-                    dataOfUser.put(ROL_KEY,Rol);
-                    dataOfUser.put(SEXO_KEY,Genero);
-                    dataOfUser.put(EDAD_KEY,Edad);
-                    //esto lo estoy probando como opcion
-                    long d = System.currentTimeMillis()/1000;
-                    dataOfUser.put(LAST_UPDATE_KEY,d);
+                        db.collection(USERS_REF).document(NickName).set(dataOfUser);
 
-                    db.collection(USERS_REF).document(NickName).set(dataOfUser);
+                        Map<String, Object> encuestaToSend = new HashMap<String, Object>();
+                        encuestaToSend.put(ALIMENTACION_KEY, comida);
+                        encuestaToSend.put(PESO_KEY, peso);
+                        encuestaToSend.put(ALTURA_KEY, Altura);
+                        encuestaToSend.put(EJERCICIO_KEY, deport);
+                        encuestaToSend.put(FUMAR_KEY, fum);
+                        encuestaToSend.put(ALCOHOL_KEY, tom);
+                        encuestaToSend.put(HORAS_KEY, estanc);
 
-                    Map<String,Object> encuestaToSend = new HashMap<String, Object>();
-                    encuestaToSend.put(ALIMENTACION_KEY,comida);
-                    encuestaToSend.put(PESO_KEY,peso);
-                    encuestaToSend.put(ALTURA_KEY,Altura);
-                    encuestaToSend.put(EJERCICIO_KEY,deport);
-                    encuestaToSend.put(FUMAR_KEY,fum);
-                    encuestaToSend.put(ALCOHOL_KEY,tom);
-                    encuestaToSend.put(HORAS_KEY,estanc);
+                        db.collection(USERS_REF).document(NickName).collection(ENCUESTA_REF).document("1").set(encuestaToSend);
 
-                    db.collection(USERS_REF).document(NickName).collection(ENCUESTA_REF).document("1").set(encuestaToSend);
+                        //para despues pasar a la siguiente pantalla
+                        Intent intent = new Intent(Encuesta.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
 
-                    //para despues pasar a la siguiente pantalla
-                    Intent intent = new Intent(Encuesta.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-
-                    SharedPreferences prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putBoolean("bandera", true);
-                    editor.putString("Nick",NickName);
-                    editor.commit();
+                        SharedPreferences prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putBoolean("bandera", true);
+                        editor.putString("Nick", NickName);
+                        editor.commit();
 
 
-                    Intent msgIntent = new Intent(Encuesta.this, ServicioEncuestas.class);
-                    startService(msgIntent);
-
+                        Intent msgIntent = new Intent(Encuesta.this, ServicioEncuestas.class);
+                        startService(msgIntent);
+                    }
                 }
 
             }

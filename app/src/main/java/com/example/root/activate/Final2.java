@@ -114,40 +114,54 @@ public class Final2 extends AppCompatActivity {
 
 
                 if(A && B && C && D && E && F && G && H ) {
-                    String deviceID = login.id(Final2.this);
-                    DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                    String date = df.format(Calendar.getInstance().getTime());
 
-                    SharedPreferences prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
-                    String IDNombre = prefs.getString("Nick","Usuario");
-                    //AQUI YA PUEDES MANDAR LOS DATOS QUE SE OBTIENEN DE LA APP
-                    //A LA BASE DE DATOS
-                    //Los datos son: gusto,consulta,distincion.pulsera,persona,amigo,habito,comieron,deviceID,date
-                    //Los datos son: gusto,consulta,distincion.pulsera,persona,amigo,habito,comieron
-                    Map<String,Object> encuestaToSend = new HashMap<String, Object>();
-                    encuestaToSend.put(GUSTO_KEY,gusto);
-                    encuestaToSend.put(CONSULTA_KEY,consulta);
-                    encuestaToSend.put(DISTINCION_KEY,distincion);
-                    encuestaToSend.put(PULSERA_KEY,pulsera);
-                    encuestaToSend.put(PERSONA_KEY,persona);
-                    encuestaToSend.put(AMIGO_KEY,amigo);
-                    encuestaToSend.put(HABITO_KEY,habito);
-                    encuestaToSend.put(COMIERON_KEY,comieron);
-                    encuestaToSend.put(LAST_UPDATE_KEY,date);
+                    if (!login.compruebaConexion(Final2.this)) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Final2.this, android.R.style.Theme_Material_Light_Dialog);
+                        builder.setTitle("Error de Conexión")
+                                .setMessage("Es necesario activar el acceso a internet ")
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
+                                        // finish();
+                                    }
+                                })
+                                .setIcon(com.example.root.activate.R.drawable.opcion4)
+                                .show();
+                    } else {
+                        String deviceID = login.id(Final2.this);
+                        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                        String date = df.format(Calendar.getInstance().getTime());
 
-                    db.collection(USERS_REF).document(IDNombre).collection(ENCUESTA_REF).document("3").set(encuestaToSend);
+                        SharedPreferences prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+                        String IDNombre = prefs.getString("Nick", "Usuario");
+                        //AQUI YA PUEDES MANDAR LOS DATOS QUE SE OBTIENEN DE LA APP
+                        //A LA BASE DE DATOS
+                        //Los datos son: gusto,consulta,distincion.pulsera,persona,amigo,habito,comieron,deviceID,date
+                        //Los datos son: gusto,consulta,distincion.pulsera,persona,amigo,habito,comieron
+                        Map<String, Object> encuestaToSend = new HashMap<String, Object>();
+                        encuestaToSend.put(GUSTO_KEY, gusto);
+                        encuestaToSend.put(CONSULTA_KEY, consulta);
+                        encuestaToSend.put(DISTINCION_KEY, distincion);
+                        encuestaToSend.put(PULSERA_KEY, pulsera);
+                        encuestaToSend.put(PERSONA_KEY, persona);
+                        encuestaToSend.put(AMIGO_KEY, amigo);
+                        encuestaToSend.put(HABITO_KEY, habito);
+                        encuestaToSend.put(COMIERON_KEY, comieron);
+                        encuestaToSend.put(LAST_UPDATE_KEY, date);
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(Final2.this, android.R.style.Theme_Material_Light_Dialog);
-                    builder.setTitle("Datos enviados correctamente")
-                            .setMessage("Gracias por responder la encuesta y utilizar la aplicación")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    finish();
-                                }
-                            })
-                            .setIcon(R.drawable.opcion4)
-                            .show();
+                        db.collection(USERS_REF).document(IDNombre).collection(ENCUESTA_REF).document("3").set(encuestaToSend);
 
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Final2.this, android.R.style.Theme_Material_Light_Dialog);
+                        builder.setTitle("Datos enviados correctamente")
+                                .setMessage("Gracias por responder la encuesta y utilizar la aplicación")
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                    }
+                                })
+                                .setIcon(R.drawable.opcion4)
+                                .show();
+                    }
                 }
 
             }

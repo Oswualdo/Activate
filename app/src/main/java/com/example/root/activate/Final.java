@@ -1,6 +1,8 @@
 package com.example.root.activate;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -143,34 +145,48 @@ public class Final extends AppCompatActivity {
 
 
                 if(A && B && C && D && E && F && G ) {
-                    String deviceID = login.id(Final.this);
-                    DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                    String date = df.format(Calendar.getInstance().getTime());
 
-                    SharedPreferences prefs = getSharedPreferences("MisPreferencias",Context.MODE_PRIVATE);
-                    String IDNombre = prefs.getString("Nick","Usuario");
+                    if (!login.compruebaConexion(Final.this)) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Final.this, android.R.style.Theme_Material_Light_Dialog);
+                        builder.setTitle("Error de Conexión")
+                                .setMessage("Es necesario activar el acceso a internet ")
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
+                                        // finish();
+                                    }
+                                })
+                                .setIcon(com.example.root.activate.R.drawable.opcion4)
+                                .show();
+                    } else {
+                        String deviceID = login.id(Final.this);
+                        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                        String date = df.format(Calendar.getInstance().getTime());
 
-                    //AQUI YA PUEDES MANDAR LOS DATOS QUE SE OBTIENEN DE LA APP
-                    //A LA BASE DE DATOS
-                    //Los datos son: comida,deport,fum,tom,estanc,peso,altura, devideID,date
-                    //Los datos son: comida,deport,fum,tom,estanc,peso,altura
-                    Map<String,Object> encuestaToSend = new HashMap<String, Object>();
-                    encuestaToSend.put(ALIMENTACION_KEY,comida);
-                    encuestaToSend.put(PESO_KEY,peso);
-                    encuestaToSend.put(EJERCICIO_KEY,deport);
-                    encuestaToSend.put(FUMAR_KEY,fum);
-                    encuestaToSend.put(ALCOHOL_KEY,tom);
-                    encuestaToSend.put(HORAS_KEY,estanc);
-                    encuestaToSend.put(LAST_UPDATE_KEY,date);
+                        SharedPreferences prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+                        String IDNombre = prefs.getString("Nick", "Usuario");
+
+                        //AQUI YA PUEDES MANDAR LOS DATOS QUE SE OBTIENEN DE LA APP
+                        //A LA BASE DE DATOS
+                        //Los datos son: comida,deport,fum,tom,estanc,peso,altura, devideID,date
+                        //Los datos son: comida,deport,fum,tom,estanc,peso,altura
+                        Map<String, Object> encuestaToSend = new HashMap<String, Object>();
+                        encuestaToSend.put(ALIMENTACION_KEY, comida);
+                        encuestaToSend.put(PESO_KEY, peso);
+                        encuestaToSend.put(EJERCICIO_KEY, deport);
+                        encuestaToSend.put(FUMAR_KEY, fum);
+                        encuestaToSend.put(ALCOHOL_KEY, tom);
+                        encuestaToSend.put(HORAS_KEY, estanc);
+                        encuestaToSend.put(LAST_UPDATE_KEY, date);
 
 
-                    db.collection(USERS_REF).document(IDNombre).collection(ENCUESTA_REF).document("2").set(encuestaToSend);
+                        db.collection(USERS_REF).document(IDNombre).collection(ENCUESTA_REF).document("2").set(encuestaToSend);
 
-                    //para despues pasar a la siguiente pantalla
-                    Intent intent = new Intent(Final.this, Final2.class);
-                    startActivity(intent);
-                    finish();
-
+                        //para despues pasar a la siguiente pantalla
+                        Intent intent = new Intent(Final.this, Final2.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 }
 
             }
