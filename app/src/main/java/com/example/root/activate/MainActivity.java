@@ -508,7 +508,7 @@ public class MainActivity extends AppCompatActivity
                 return true;
             case MENU_QUIT:
                 //resetValues(false);
-                unbindStepService();
+//                unbindStepService();
                 //stopStepService();
                 //mQuitting = true;
                 finish();
