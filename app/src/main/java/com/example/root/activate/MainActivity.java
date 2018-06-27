@@ -158,10 +158,19 @@ public class MainActivity extends AppCompatActivity
                     }catch (Exception ex){}
                     }
 
-        setData();
-        mChart.setDescription("Numero de pasos cada x minutos");
-        mChart.animateX(2500, Easing.EasingOption.EaseInOutQuart);
-        mChart.invalidate();
+        new Thread(new Runnable() {
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        setData();
+                        mChart.setDescription("Numero de pasos cada x minutos");
+                        mChart.animateX(2500, Easing.EasingOption.EaseInOutQuart);
+                        mChart.invalidate();
+                    }
+                });
+            }
+        }).start();
+
 
 
         imagen_rota=(ImageView)findViewById(R.id.Rota);
@@ -321,10 +330,18 @@ public class MainActivity extends AppCompatActivity
             }catch (Exception ex){}
         }
 
-        setData();
-        mChart.setDescription("Numero de pasos cada x minutos");
-        mChart.animateX(2500, Easing.EasingOption.EaseInOutQuart);
-        mChart.invalidate();
+        new Thread(new Runnable() {
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        setData();
+                        mChart.setDescription("Numero de pasos cada x minutos");
+                        mChart.animateX(2500, Easing.EasingOption.EaseInOutQuart);
+                        mChart.invalidate();
+                    }
+                });
+            }
+        }).start();
 
 
 

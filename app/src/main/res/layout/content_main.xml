@@ -44,7 +44,8 @@
             android:paddingRight="@dimen/padding"
             android:paddingTop="@dimen/padding"
             android:text="0"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:visibility="gone" />
 
 
         <com.github.mikephil.charting.charts.LineChart
@@ -52,6 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="236dp"
             android:layout_alignParentBottom="true"
+            android:layout_below="@+id/Rota"
             android:layout_marginBottom="5dp" />
 
         <ImageView
@@ -78,7 +80,8 @@
             android:layout_alignBaseline="@+id/step_value"
             android:layout_toStartOf="@+id/step_value"
             android:text="Pasos:"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/imageView3"
@@ -92,6 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="Bienvenido"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <ImageView
