@@ -158,19 +158,10 @@ public class MainActivity extends AppCompatActivity
                     }catch (Exception ex){}
                     }
 
-        new Thread(new Runnable() {
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        setData();
-                        mChart.setDescription("Numero de pasos cada x minutos");
-                        mChart.animateX(2500, Easing.EasingOption.EaseInOutQuart);
-                        mChart.invalidate();
-                    }
-                });
-            }
-        }).start();
-
+        setData();
+        mChart.setDescription("Numero de pasos cada x minutos");
+        mChart.animateX(2500, Easing.EasingOption.EaseInOutQuart);
+        mChart.invalidate();
 
 
         imagen_rota=(ImageView)findViewById(R.id.Rota);
@@ -201,7 +192,7 @@ public class MainActivity extends AppCompatActivity
 
         mStepValue = 0;
         mPaceValue = 0;
-        startStepService();
+
 
 
         mUtils = Utils.getInstance();
@@ -254,7 +245,6 @@ public class MainActivity extends AppCompatActivity
     //###################################################333
     @Override
     protected void onResume() {
-        startStepService();
         Log.i(TAG, "[ACTIVITY] onResume");
         super.onResume();
 
@@ -330,18 +320,10 @@ public class MainActivity extends AppCompatActivity
             }catch (Exception ex){}
         }
 
-        new Thread(new Runnable() {
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        setData();
-                        mChart.setDescription("Numero de pasos cada x minutos");
-                        mChart.animateX(2500, Easing.EasingOption.EaseInOutQuart);
-                        mChart.invalidate();
-                    }
-                });
-            }
-        }).start();
+        setData();
+        mChart.setDescription("Numero de pasos cada x minutos");
+        mChart.animateX(2500, Easing.EasingOption.EaseInOutQuart);
+        mChart.invalidate();
 
 
 
@@ -350,8 +332,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onPause() {
-        startStepService();
-        //super.onPause();
+        super.onPause();
         activityRunning = false;
         // En caso de que la pausen, se supone esto no va a pasar
 //        sensorManager.unregisterListener(this);
@@ -380,14 +361,12 @@ public class MainActivity extends AppCompatActivity
     }
     @Override
     protected void onStop() {
-        startStepService();
         Log.i(TAG, "[ACTIVITY] onStop");
         super.onStop();
     }
 
     @Override
     protected void onStart() {
-        startStepService();
         Log.i(TAG, "[ACTIVITY] onStart");
         super.onStart();
     }
@@ -521,13 +500,13 @@ public class MainActivity extends AppCompatActivity
                 bindStepService();
                 return true;
             case MENU_RESET:
-                //resetValues(true);
+                resetValues(true);
                 return true;
             case MENU_QUIT:
-                //resetValues(false);
-//                unbindStepService();
+                resetValues(false);
+                unbindStepService();
                 //stopStepService();
-                //mQuitting = true;
+                mQuitting = true;
                 finish();
                 return true;
         }
@@ -589,18 +568,14 @@ public class MainActivity extends AppCompatActivity
         }
 
     };
-    protected void onDestroy() {startStepService();
-        savePaceSetting();
-
+    protected void onDestroy() {
         Log.i(TAG, "[ACTIVITY] onDestroy");
         super.onDestroy();
-        //savePaceSetting();
     }
 
     @SuppressLint("MissingSuperCall")
     protected void onRestart() {
-        startStepService();
-        savePaceSetting();
+
         Log.i(TAG, "[ACTIVITY] onRestart");
         super.onRestart();
         //super.onDestroy();
