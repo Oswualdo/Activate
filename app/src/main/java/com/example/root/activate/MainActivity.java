@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity
 
                 }catch (Exception ex){ //IOException e
                   Log.e("Ficheros", "Error al escribir fichero a memoria interna");
-                }}else{Toast.makeText(this, "puto", Toast.LENGTH_SHORT).show();}
+                }}else{Toast.makeText(this, "Agregado", Toast.LENGTH_SHORT).show();}
 
         setData();
         mChart.setDescription("Distancia recorrida");
