@@ -132,7 +132,7 @@ public class StepService extends Service {
         reloadSettings();
 
         // Tell the user we started.
-        Toast.makeText(this, getText(R.string.started), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, getText(R.string.started), Toast.LENGTH_SHORT).show();
     }
     
     @SuppressLint("LongLogTag")
@@ -169,7 +169,7 @@ public class StepService extends Service {
         mSensorManager.unregisterListener(mStepDetector);
 
         // Tell the user we stopped.
-        Toast.makeText(this, getText(R.string.stopped), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, getText(R.string.stopped), Toast.LENGTH_SHORT).show();
     }
 
     private void registerDetector() {

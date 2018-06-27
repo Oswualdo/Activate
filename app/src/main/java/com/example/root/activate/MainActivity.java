@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity
 
         mStepValue = 0;
         mPaceValue = 0;
-
+        startStepService();
 
 
         mUtils = Utils.getInstance();
@@ -245,6 +245,7 @@ public class MainActivity extends AppCompatActivity
     //###################################################333
     @Override
     protected void onResume() {
+        startStepService();
         Log.i(TAG, "[ACTIVITY] onResume");
         super.onResume();
 
@@ -332,7 +333,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onPause() {
-        super.onPause();
+        startStepService();
+        //super.onPause();
         activityRunning = false;
         // En caso de que la pausen, se supone esto no va a pasar
 //        sensorManager.unregisterListener(this);
@@ -361,12 +363,14 @@ public class MainActivity extends AppCompatActivity
     }
     @Override
     protected void onStop() {
+        startStepService();
         Log.i(TAG, "[ACTIVITY] onStop");
         super.onStop();
     }
 
     @Override
     protected void onStart() {
+        startStepService();
         Log.i(TAG, "[ACTIVITY] onStart");
         super.onStart();
     }
@@ -500,13 +504,13 @@ public class MainActivity extends AppCompatActivity
                 bindStepService();
                 return true;
             case MENU_RESET:
-                resetValues(true);
+                //resetValues(true);
                 return true;
             case MENU_QUIT:
-                resetValues(false);
+                //resetValues(false);
                 unbindStepService();
                 //stopStepService();
-                mQuitting = true;
+                //mQuitting = true;
                 finish();
                 return true;
         }
@@ -568,14 +572,18 @@ public class MainActivity extends AppCompatActivity
         }
 
     };
-    protected void onDestroy() {
+    protected void onDestroy() {startStepService();
+        savePaceSetting();
+
         Log.i(TAG, "[ACTIVITY] onDestroy");
         super.onDestroy();
+        //savePaceSetting();
     }
 
     @SuppressLint("MissingSuperCall")
     protected void onRestart() {
-
+        startStepService();
+        savePaceSetting();
         Log.i(TAG, "[ACTIVITY] onRestart");
         super.onRestart();
         //super.onDestroy();
