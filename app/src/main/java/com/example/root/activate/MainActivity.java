@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity
                     lista.add(linea);
                     bitacoraCompleta = bitacoraCompleta + linea + "\n";
                     linea = br.readLine();
-                    
+
                 }
                 br.close();
                 archivo.close();
@@ -148,7 +148,16 @@ public class MainActivity extends AppCompatActivity
 
                 }catch (Exception ex){ //IOException e
                   Log.e("Ficheros", "Error al escribir fichero a memoria interna");
+<<<<<<< Updated upstream
                 }}else{Toast.makeText(this, "Agregado", Toast.LENGTH_SHORT).show();}
+=======
+                }}else {
+                    try {
+                       // Toast.makeText(this, "puto", Toast.LENGTH_SHORT).show();
+                        OutputStreamWriter archivo = new OutputStreamWriter(openFileOutput("bitacora.txt", Context.MODE_PRIVATE));
+                    }catch (Exception ex){}
+                    }
+>>>>>>> Stashed changes
 
         setData();
         mChart.setDescription("Distancia recorrida");
