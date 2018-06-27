@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity
     private boolean mQuitting = false; // Set when user selected Quit from menu, can be used by onPause, onStop, onDestroy
 
     private LineChart mChart;
-    private ArrayList<String> lista = new ArrayList<String>();
+    public ArrayList<String> lista = new ArrayList<String>();
 
     /**
      * True, when service is running.
@@ -109,6 +109,8 @@ public class MainActivity extends AppCompatActivity
     boolean activityRunning;
     ImageView imagen_rota;
     SharedPreferences prefs;
+
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,15 +150,16 @@ public class MainActivity extends AppCompatActivity
 
                 }catch (Exception ex){ //IOException e
                   Log.e("Ficheros", "Error al escribir fichero a memoria interna");
-
-               }}else {
+                }}else {
                     try {
                        // Toast.makeText(this, "puto", Toast.LENGTH_SHORT).show();
-                        OutputStreamWriter archivo = new OutputStreamWriter(openFileOutput("bitacora.txt", Context.MODE_PRIVATE));
+                        OutputStreamWriter archivo = new OutputStreamWriter(openFileOutput("bitacora.txt", Context.MODE_APPEND));
+                        archivo.write("0" +  "\n");
                     }catch (Exception ex){}
                     }
+
         setData();
-        mChart.setDescription("Distancia recorrida");
+        mChart.setDescription("Numero de pasos cada x minutos");
         mChart.animateX(2500, Easing.EasingOption.EaseInOutQuart);
         mChart.invalidate();
 
@@ -286,6 +289,45 @@ public class MainActivity extends AppCompatActivity
 
 
 //        displayDesiredPaceOrSpeed();
+
+
+        String archivos [] = fileList();
+
+        if(ArchivoExiste(archivos, "bitacora.txt")){
+            try {
+                InputStreamReader archivo = new InputStreamReader(openFileInput("bitacora.txt"));
+                BufferedReader br = new BufferedReader(archivo);
+                String linea = br.readLine();
+                String bitacoraCompleta = "";
+                lista.clear();
+                while (linea != null) {
+                    lista.add(linea);
+                    bitacoraCompleta = bitacoraCompleta + linea + "\n";
+                    linea = br.readLine();
+
+                }
+                br.close();
+                archivo.close();
+                //et1.setText(bitacoraCompleta);
+                //Toast.makeText(this, "puto", Toast.LENGTH_SHORT).show();
+
+            }catch (Exception ex){ //IOException e
+                Log.e("Ficheros", "Error al escribir fichero a memoria interna");
+            }}else {
+            try {
+                // Toast.makeText(this, "puto", Toast.LENGTH_SHORT).show();
+                OutputStreamWriter archivo = new OutputStreamWriter(openFileOutput("bitacora.txt", Context.MODE_PRIVATE));
+            }catch (Exception ex){}
+        }
+
+        setData();
+        mChart.setDescription("Numero de pasos cada x minutos");
+        mChart.animateX(2500, Easing.EasingOption.EaseInOutQuart);
+        mChart.invalidate();
+
+
+
+
     }
 
     @Override
@@ -581,7 +623,7 @@ public class MainActivity extends AppCompatActivity
         LineDataSet set1;
 
         // create a dataset and give it a type
-        set1 = new LineDataSet(yVals, "DataSet 1");
+        set1 = new LineDataSet(yVals, "Pasos");
 
         set1.setFillAlpha(110);
         //set1.setFillColor(Color.RED);

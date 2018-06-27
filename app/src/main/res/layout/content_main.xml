@@ -108,7 +108,8 @@
             android:layout_alignBottom="@+id/step_value"
             android:layout_toStartOf="@+id/Rota"
             android:onClick="Guardar"
-            android:text="Button" />
+            android:text="Button"
+            android:visibility="invisible" />
 
     </RelativeLayout>
 
