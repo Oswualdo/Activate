@@ -135,7 +135,7 @@ public class Final2 extends AppCompatActivity {
                     encuestaToSend.put(COMIERON_KEY,comieron);
                     encuestaToSend.put(LAST_UPDATE_KEY,date);
 
-                    db.collection(USERS_REF).document(deviceID).collection(ENCUESTA_REF).document("3").set(encuestaToSend);
+                    db.collection(USERS_REF).document(IDNombre).collection(ENCUESTA_REF).document("3").set(encuestaToSend);
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(Final2.this, android.R.style.Theme_Material_Light_Dialog);
                     builder.setTitle("Datos enviados correctamente")

@@ -13,9 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="0dp"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
 
         <TextView
@@ -37,8 +37,8 @@
             android:id="@+id/step_value"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/linechart"
             android:layout_alignEnd="@+id/Rota"
+            android:layout_below="@+id/Rota"
             android:gravity="left|center_horizontal"
             android:paddingLeft="@dimen/padding"
             android:paddingRight="@dimen/padding"
@@ -50,7 +50,7 @@
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/linechart"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="236dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="5dp" />
 
@@ -82,8 +82,8 @@
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="93dp"
+            android:layout_height="81dp"
             app:srcCompat="@drawable/opcion4" />
 
         <TextView
@@ -96,10 +96,19 @@
 
         <ImageView
             android:id="@+id/imageView4"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="93dp"
+            android:layout_height="76dp"
             android:layout_alignParentEnd="true"
             app:srcCompat="@drawable/inaoe" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/step_value"
+            android:layout_toStartOf="@+id/Rota"
+            android:onClick="Guardar"
+            android:text="Button" />
 
     </RelativeLayout>
 
